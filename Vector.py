@@ -1,4 +1,5 @@
 import math
+import VectorSizeMismatch
 
 
 class Vector(object):
@@ -180,6 +181,8 @@ class Vector(object):
         Vector to add.
     """
     def addVector(self, v):
+        if self.size != v.size:
+            raise VectorSizeMismatch
         for i in range(self.size):
             self.values[i] = self.values[i] + v.values[i]
 
@@ -193,6 +196,8 @@ class Vector(object):
         Vector to subtract from values list.
     """
     def subtract(self, v):
+        if self.size != v.size:
+            raise VectorSizeMismatch
         for i in range(self.size):
             self.values[i] = self.values[i] - v.values[i]
 
@@ -212,6 +217,8 @@ class Vector(object):
         new Vector with result list.
     """
     def difference(self, v):
+        if self.size != v.size:
+            raise VectorSizeMismatch
         result = Vector()
         for i in range(self.size):
             result.add(self.values[i] - v.values[i])
@@ -233,6 +240,8 @@ class Vector(object):
         result.
     """
     def dotProduct(self, v):
+        if self.size != v.size:
+            raise VectorSizeMismatch
         result = 0
         for i in range (self.size):
             result += self.values[i] * v.values[i]
@@ -269,6 +278,8 @@ class Vector(object):
         with result list.
     """
     def elementProduct(self, v):
+        if self.size != v.size:
+            raise VectorSizeMismatch
         result = Vector()
         for i in range(self.size):
             result.add(self.values[i] * v.values[i])
@@ -358,6 +369,8 @@ class Vector(object):
         dotProduct(v) / l2Norm() / v.l2Norm()
     """
     def cosineSimilarity(self, v):
+        if self.size != v.size:
+            raise VectorSizeMismatch
         return self.dotProduct(v) / self.l2Norm() / v.l2Norm()
 
     """
