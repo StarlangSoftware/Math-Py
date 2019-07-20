@@ -17,7 +17,7 @@ class Vector(object):
     values : list
         list input.
     """
-    def __init__withVector(self, values):
+    def initWithVector(self, values: list):
         self.values = values
         self.size = len(values)
 
@@ -32,7 +32,7 @@ class Vector(object):
     x : double   
         item to add values list.
     """
-    def __init__allSame(self, size, x):
+    def initAllSame(self, size, x):
         self.size = size
         self.values = []
         for i in range(size):
@@ -52,7 +52,7 @@ class Vector(object):
     x : double    
         item to add values list's given index.
     """
-    def __init__allZerosExceptOne(self, size, index, x):
+    def initAllZerosExceptOne(self, size, index, x):
         self.size = size
         self.values = []
         for i in range(size):
