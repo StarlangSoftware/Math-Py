@@ -1,3 +1,4 @@
+from __future__ import annotations
 import collections
 import math
 
@@ -20,7 +21,7 @@ class DiscreteDistribution(collections.OrderedDict):
     item : string 
         String input.
     """
-    def addItem(self, item):
+    def addItem(self, item: str):
         if item in self:
             self[item] = self[item] + 1
         else:
@@ -36,7 +37,7 @@ class DiscreteDistribution(collections.OrderedDict):
     item : string 
         String input.
     """
-    def removeItem(self, item):
+    def removeItem(self, item: str):
         if item in self:
             self[item] = self[item] - 1
             if self[item] == 0:
@@ -52,7 +53,7 @@ class DiscreteDistribution(collections.OrderedDict):
     distribution : DiscreteDistribution 
         DiscreteDistribution type input.
     """
-    def addDistribution(self, distribution):
+    def addDistribution(self, distribution: DiscreteDistribution):
         for entry in distribution:
             if entry in self:
                 self[entry] = self[entry] + distribution[entry]
@@ -70,7 +71,7 @@ class DiscreteDistribution(collections.OrderedDict):
     distribution : DiscreteDistribution 
         DiscreteDistribution type input.
     """
-    def removeDistribution(self, distribution):
+    def removeDistribution(self, distribution: DiscreteDistribution):
         for entry in distribution:
             if self[entry] - distribution[entry] != 0:
                 self[entry] -= distribution[entry]
@@ -86,7 +87,7 @@ class DiscreteDistribution(collections.OrderedDict):
     double
         sum
     """
-    def getSum(self):
+    def getSum(self) -> float:
         return self.sum
 
     """
@@ -102,7 +103,7 @@ class DiscreteDistribution(collections.OrderedDict):
     int
         index of given item.
     """
-    def getIndex(self, item):
+    def getIndex(self, item: str) -> int:
         return list(self.keys()).index(item)
 
     """
@@ -119,7 +120,7 @@ class DiscreteDistribution(collections.OrderedDict):
     boolean
         true if this map contains a mapping for the given item.
     """
-    def containsItem(self, item):
+    def containsItem(self, item: str) -> bool:
         return item in self
 
     """
@@ -135,7 +136,7 @@ class DiscreteDistribution(collections.OrderedDict):
     string
         the item at given index.
     """
-    def getItem(self, index):
+    def getItem(self, index: int) -> str:
         return list(self.keys())[index]
 
     """
@@ -151,7 +152,7 @@ class DiscreteDistribution(collections.OrderedDict):
     int
         the value at given index.
     """
-    def getValue(self, index):
+    def getValue(self, index: int) -> str:
         return list(self.values())[index]
 
     """
@@ -167,7 +168,7 @@ class DiscreteDistribution(collections.OrderedDict):
     int
         the value to which the specified item is mapped
     """
-    def getCount(self, item):
+    def getCount(self, item: str) -> int:
         return self[item]
 
     """
@@ -178,7 +179,7 @@ class DiscreteDistribution(collections.OrderedDict):
     string
         the entry with maximum value.
     """
-    def getMaxItem(self):
+    def getMaxItem(self) -> str:
         maxValue = -1
         maxItem = ""
         for item in self:
@@ -201,7 +202,7 @@ class DiscreteDistribution(collections.OrderedDict):
     string
         the item with maximum value.
     """
-    def getMaxItemIncludeTheseOnly(self, includeTheseOnly):
+    def getMaxItemIncludeTheseOnly(self, includeTheseOnly: list) -> str:
         maxValue = -1
         maxItem = ""
         for item in includeTheseOnly:
@@ -227,7 +228,7 @@ class DiscreteDistribution(collections.OrderedDict):
     double
         the probability to which the specified item is mapped.
     """
-    def getProbability(self, item):
+    def getProbability(self, item: str) -> float:
         if item in self:
             return self[item] / sum
         else:
@@ -246,7 +247,7 @@ class DiscreteDistribution(collections.OrderedDict):
     double
         the smoothed probability to which the specified item is mapped.
     """
-    def getProbabilityLaplaceSmoothing(self, item):
+    def getProbabilityLaplaceSmoothing(self, item: str) -> float:
         if item in self:
             return (self[item] + 1) / (self.sum + len(self) + 1)
         else:
@@ -260,7 +261,7 @@ class DiscreteDistribution(collections.OrderedDict):
     double
         entropy value.
     """
-    def entropy(self):
+    def entropy(self) -> float:
         total = 0.0
         for count in self.values():
             probability = count / sum

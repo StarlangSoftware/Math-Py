@@ -1,5 +1,8 @@
+from __future__ import annotations
 import random
 import Vector
+import MatrixDimensionMismatch
+import MatrixColumnMismatch
 
 
 class Matrix(object):
@@ -14,7 +17,7 @@ class Matrix(object):
     col : int
         is used to create matrix.
     """
-    def __init__(self, row, col):
+    def __init__(self, row : int, col : int):
         self.row = row
         self.col = col
         self.initZeros()
@@ -34,7 +37,7 @@ class Matrix(object):
     max : double
         maximum value.
     """
-    def initRandom(self, minValue, maxValue):
+    def initRandom(self, minValue : float, maxValue : float):
         self.values = [[random.uniform(minValue, maxValue) for j in range(self.col)] for i in range(self.row)]
 
     """
@@ -61,7 +64,7 @@ class Matrix(object):
     double
         item at given index of values list.
     """
-    def getValue(self, rowNo, colNo):
+    def getValue(self, rowNo : int, colNo : int) -> float:
         return self.values[rowNo][colNo]
 
     """
@@ -76,7 +79,7 @@ class Matrix(object):
     value : double
         is used to set at given index.
     """
-    def setValue(self, rowNo, colNo, value):
+    def setValue(self, rowNo : int, colNo : int, value : float):
         self.values[rowNo][colNo] = value
 
     """
@@ -91,7 +94,7 @@ class Matrix(object):
     value : double
         is used to add to given item at given index.
     """
-    def addValue(self, rowNo, colNo, value):
+    def addValue(self, rowNo : int, colNo : int, value : float):
         self.values[rowNo][colNo] += value
 
     """
@@ -100,7 +103,7 @@ class Matrix(object):
      * @param rowNo integer input for row number.
      * @param colNo integer input for column number.
     """
-    def increment(self, rowNo, colNo):
+    def increment(self, rowNo : int, colNo : int):
         self.values[rowNo][colNo] += 1
 
     """
@@ -111,7 +114,7 @@ class Matrix(object):
     int
         row number.
     """
-    def getRow(self):
+    def getRow(self) -> int:
         return self.row
 
     """
@@ -127,7 +130,7 @@ class Matrix(object):
     Vector
         Vector of values list at given row input.
     """
-    def getRowVector(self, row):
+    def getRowVector(self, row : int) -> Vector:
         rowVector = Vector.Vector()
         rowList = self.values[row]
         rowVector.initWithVector(rowList)
@@ -141,7 +144,7 @@ class Matrix(object):
     int
         column number.
     """
-    def getColumn(self):
+    def getColumn(self) -> int:
         return self.col
 
     """
@@ -158,8 +161,78 @@ class Matrix(object):
     Vector
         Vector of given column number.
     """
-    def getColumnVector(self, column):
+    def getColumnVector(self, column : int) -> Vector:
         columnVector = Vector.Vector()
         for i in range(self.row):
             columnVector.add(self.values[i][column])
         return columnVector
+
+    """
+    The columnWiseNormalize method, first accumulates items column by column then divides items 
+    by the summation.
+    """
+    def columnWiseNormalize(self):
+        for i in range(self.row):
+            total = sum(self.values[i])
+            self.values[i][:] = [x / total for x in self.values[i]]
+
+    """
+    The multiplyWithConstant method takes a constant as an input and multiplies each item of values list
+    with given constant.
+
+    PARAMETERS
+    ----------
+    constant : double
+        constant value to multiply items of values list.
+    """
+    def multiplyWithConstant(self, constant : float):
+        for i in range(self.row):
+            self.values[i][:] = [x * constant for x in self.values[i]]
+
+    """
+    The divideByConstant method takes a constant as an input and divides each item of values {@link java.lang.reflect.Array}
+    with given constant.
+
+    PARAMETERS
+    ----------
+    constant : double
+        constant value to divide items of values list.
+    """
+    def divideByConstant(self, constant : float):
+        for i in range(self.row):
+            self.values[i][:] = [x / constant for x in self.values[i]]
+
+    """
+    The add method takes a Matrix as an input and accumulates values list with the
+    corresponding items of given Matrix. If the sizes of both Matrix and values list do not match,
+    it throws MatrixDimensionMismatch exception.
+
+    PARAMETERS
+    ----------
+    m : Matrix
+        Matrix type input.
+    """
+    def add(self, m: Matrix):
+        if self.row != m.row or self.col != m.col:
+            raise MatrixDimensionMismatch
+        for i in range(self.row):
+            for j in range(self.col):
+                self.values[i][j] += m.values[i][j]
+
+    """
+    The add method which takes a row number and a Vector as inputs. It sums up the corresponding values at the given 
+    row of values list and given Vector. If the sizes of both Matrix and values list do not match, it throws 
+    MatrixColumnMismatch exception.
+
+    PARAMETERS
+    ----------
+    rowNo : int
+        integer input for row number.
+    v : Vector    
+        Vector type input.
+    """
+    def addRowVector(self, rowNo: int, v: Vector):
+        if self.col != v.size():
+            raise MatrixColumnMismatch
+        for i in range(self.col):
+            self.values[rowNo][i] += v.getValue(i)

@@ -1,4 +1,7 @@
-class Eigenvector(object):
+import Vector
+
+
+class Eigenvector(Vector.Vector):
 
     """
     A constructor of Eigenvector which takes a double eigenValue and an list values as inputs.
@@ -12,8 +15,9 @@ class Eigenvector(object):
     values : list
         list input.
     """
-    def __init__(self, eigenvalue, values):
-        super(values)
+    def __init__(self, eigenvalue: float, values: list):
+        super().__init__()
+        self.initWithVector(values)
         self.eigenvalue = eigenvalue
 
     """
@@ -23,5 +27,5 @@ class Eigenvector(object):
     double
         eigenValue variable.
     """
-    def eigenValue(self):
+    def eigenValue(self) -> float:
         return self.eigenvalue

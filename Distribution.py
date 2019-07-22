@@ -28,7 +28,7 @@ class Distribution(object):
         0 if input is less than -BIGX, Euler's number e raised to the power of x otherwise.
     """
     @staticmethod
-    def ex(x):
+    def ex(x: float) -> float:
         if x < -Distribution.BIGX:
             return 0
         return math.exp(x)
@@ -48,7 +48,7 @@ class Distribution(object):
         beta distribution at point x.
     """
     @staticmethod
-    def beta(x):
+    def beta(x: list) -> float:
         sum = 0.0
         result = 0.0
         for i in range(len(x)):
@@ -71,7 +71,7 @@ class Distribution(object):
         the logarithmic result of the gamma distribution at point x.
     """
     @staticmethod
-    def gammaLn(x):
+    def gammaLn(x: float) -> float:
         cof = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5]
         y = x
         tmp = x + 5.5
@@ -97,7 +97,7 @@ class Distribution(object):
         normalized value of given input.
     """
     @staticmethod
-    def zNormal(z):
+    def zNormal(z: float) -> float:
         if z == 0.0:
             x = 0.0
         else:
@@ -130,7 +130,7 @@ class Distribution(object):
         the Z-Inverse of given probability.
     """
     @staticmethod
-    def zInverse(p):
+    def zInverse(p: float) -> float:
         minz = -Distribution.Z_MAX
         maxz = Distribution.Z_MAX
         zval = 0.0
@@ -163,7 +163,7 @@ class Distribution(object):
         the Chi Squared result.
     """
     @staticmethod
-    def chiSquare(x, freedom):
+    def chiSquare(x: float, freedom: int) -> float:
         y = 0
         if x <= 0.0 or freedom < 1:
             return 1.0
@@ -222,7 +222,7 @@ class Distribution(object):
         the chiSquare-Inverse of given probability.
     """
     @staticmethod
-    def chiSquareInverse(p, freedom):
+    def chiSquareInverse(p: float, freedom: int) -> float:
         minchisq = 0.0
         maxchisq = Distribution.CHI_MAX
         if p <= 0.0:
@@ -258,7 +258,7 @@ class Distribution(object):
         the F-Distribution result.
     """
     @staticmethod
-    def fDistribution(F, freedom1, freedom2):
+    def fDistribution(F: float, freedom1: int, freedom2: int) -> float:
         if F < Distribution.F_EPSILON or freedom1 < 1 or freedom2 < 1:
             return 1.0
         if freedom1 % 2 != 0:
@@ -327,7 +327,7 @@ class Distribution(object):
         the F-Distribution Inverse of given probability.
     """
     @staticmethod
-    def fDistributionInverse(p, freedom1, freedom2):
+    def fDistributionInverse(p: float, freedom1: int, freedom2: int) -> float:
         maxf = Distribution.F_MAX
         minf = 0.0
         if p <= 0.0 or p >= 1.0:
@@ -360,7 +360,7 @@ class Distribution(object):
         the T-Distribution result.
     """
     @staticmethod
-    def tDistribution(T, freedom):
+    def tDistribution(T: float, freedom: int) -> float:
         if T >= 0:
             return Distribution.fDistribution(T * T, 1, freedom) / 2
         else:
@@ -382,7 +382,7 @@ class Distribution(object):
         the T-Distribution Inverse of given probability.
     """
     @staticmethod
-    def tDistributionInverse(p, freedom):
+    def tDistributionInverse(p: float, freedom: int) -> float:
         if p < 0.5:
             return math.sqrt(Distribution.fDistributionInverse(p * 2, 1, freedom))
         else:

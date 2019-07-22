@@ -1,3 +1,4 @@
+from __future__ import annotations
 import math
 import VectorSizeMismatch
 
@@ -32,7 +33,7 @@ class Vector(object):
     x : double   
         item to add values list.
     """
-    def initAllSame(self, size, x):
+    def initAllSame(self, size: int, x: float):
         self.size = size
         self.values = []
         for i in range(size):
@@ -52,7 +53,7 @@ class Vector(object):
     x : double    
         item to add values list's given index.
     """
-    def initAllZerosExceptOne(self, size, index, x):
+    def initAllZerosExceptOne(self, size: int, index: int, x: float):
         self.size = size
         self.values = []
         for i in range(size):
@@ -83,7 +84,7 @@ class Vector(object):
     x : double 
         input to add values list.
     """
-    def add(self, x):
+    def add(self, x: int):
         self.values.append(x)
         self.size = self.size + 1
 
@@ -97,7 +98,7 @@ class Vector(object):
     x : double  
         input to insert to given index of values list.
     """
-    def insert(self, pos, x):
+    def insert(self, pos: int, x: float):
         self.values.insert(pos, x)
         self.size = self.size + 1
 
@@ -109,7 +110,7 @@ class Vector(object):
     pos : int 
         index to remove from values list.
     """
-    def remove(self, pos):
+    def remove(self, pos: int):
         self.values.pop(pos)
         self.size = self.size - 1
 
@@ -130,7 +131,7 @@ class Vector(object):
     int
         final maximum item's index.
     """
-    def maxIndex(self):
+    def maxIndex(self) -> int:
         index = 0
         maxValue = self.values[0]
         for i in range(1, self.size):
@@ -163,7 +164,7 @@ class Vector(object):
     Vector
         result Vector.
     """
-    def skipVector(self, mod, value):
+    def skipVector(self, mod: int, value: int) -> Vector:
         result = Vector()
         i = value
         while i < self.size:
@@ -180,7 +181,7 @@ class Vector(object):
     v : Vector
         Vector to add.
     """
-    def addVector(self, v):
+    def addVector(self, v: Vector):
         if self.size != v.size:
             raise VectorSizeMismatch
         for i in range(self.size):
@@ -195,7 +196,7 @@ class Vector(object):
     v : Vector
         Vector to subtract from values list.
     """
-    def subtract(self, v):
+    def subtract(self, v: Vector):
         if self.size != v.size:
             raise VectorSizeMismatch
         for i in range(self.size):
@@ -216,7 +217,7 @@ class Vector(object):
     Vector
         new Vector with result list.
     """
-    def difference(self, v):
+    def difference(self, v: Vector) -> Vector:
         if self.size != v.size:
             raise VectorSizeMismatch
         result = Vector()
@@ -239,7 +240,7 @@ class Vector(object):
     double 
         result.
     """
-    def dotProduct(self, v):
+    def dotProduct(self, v: Vector) -> float:
         if self.size != v.size:
             raise VectorSizeMismatch
         result = 0
@@ -256,7 +257,7 @@ class Vector(object):
     double 
         result.
     """
-    def dotProductWithSelf(self):
+    def dotProductWithSelf(self) -> float:
         result = 0
         for i in range (self.size):
             result += self.values[i] * self.values[i]
@@ -277,7 +278,7 @@ class Vector(object):
     Vector 
         with result list.
     """
-    def elementProduct(self, v):
+    def elementProduct(self, v: Vector) -> Vector:
         if self.size != v.size:
             raise VectorSizeMismatch
         result = Vector()
@@ -293,7 +294,7 @@ class Vector(object):
     value : double
         is used to divide items of values list.
     """
-    def divide(self, value):
+    def divide(self, value: float):
         for i in range(self.size):
             self.values[i] = self.values[i] / value
 
@@ -305,7 +306,7 @@ class Vector(object):
     value : double
         is used to multiply items of values list.
     """
-    def multiply(self, value):
+    def multiply(self, value: float):
         for i in range(self.size):
             self.values[i] = self.values[i] * value
 
@@ -323,7 +324,7 @@ class Vector(object):
     Vector 
         Vector result.
     """
-    def product(self, value):
+    def product(self, value: float) -> Vector:
         result = Vector()
         for i in range(self.size):
             result.add(self.values[i] * value)
@@ -349,7 +350,7 @@ class Vector(object):
     double
         square root of this summation.
     """
-    def l2Norm(self):
+    def l2Norm(self) -> float:
         sum = 0
         for i in range(self.size):
             sum += self.values[i] ** 2
@@ -368,7 +369,7 @@ class Vector(object):
     double
         dotProduct(v) / l2Norm() / v.l2Norm()
     """
-    def cosineSimilarity(self, v):
+    def cosineSimilarity(self, v: Vector) -> float:
         if self.size != v.size:
             raise VectorSizeMismatch
         return self.dotProduct(v) / self.l2Norm() / v.l2Norm()
@@ -378,10 +379,10 @@ class Vector(object):
 
     Returns
     ----------
-    double
+    int
         size of the values list
     """
-    def size(self):
+    def size(self) -> int:
         return len(self.values)
 
     """
@@ -397,7 +398,7 @@ class Vector(object):
     item
         the item at given index.
     """
-    def getValue(self, index):
+    def getValue(self, index: int) -> float:
         return self.values[index]
 
     """
@@ -410,7 +411,7 @@ class Vector(object):
     value : item 
         is used to set the given index
     """
-    def setValue(self, index, value):
+    def setValue(self, index: int, value: float):
         self.values[index] = value
 
     """
@@ -423,5 +424,5 @@ class Vector(object):
     value : item
         value to add to given index.
     """
-    def addValue(self, index, value):
+    def addValue(self, index: int, value: float):
         self.values[index] += value
