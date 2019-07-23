@@ -84,7 +84,7 @@ class Vector(object):
     x : double 
         input to add values list.
     """
-    def add(self, x: int):
+    def add(self, x: float):
         self.values.append(x)
         self.size = self.size + 1
 
