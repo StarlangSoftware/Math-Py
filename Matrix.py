@@ -1,11 +1,16 @@
 from __future__ import annotations
 import random
 import Vector
+import math
+import Eigenvector
 import MatrixDimensionMismatch
 import MatrixColumnMismatch
 import MatrixRowMismatch
 import MatrixRowColumnMismatch
 import MatrixNotSquare
+import DeterminantZero
+import MatrixNotSymmetric
+import MatrixNotPositiveDefinite
 
 
 class Matrix(object):
@@ -51,6 +56,22 @@ class Matrix(object):
         self.initZeros()
         for i in range(self.row):
             self.values[i][i] = 1
+
+    """
+    The clone method creates new Matrix and copies the content of values list into new matrix.
+
+    RETURNS
+    -------
+    Matrix
+        Matrix which is the copy of values list.
+    """
+    def clone(self) -> Matrix:
+        result = Matrix(self.row, self.col)
+        for i in range(self.row):
+            for j in range(self.col):
+                result.values[i][j] = self.values[i][j]
+        return result
+
 
     """
     The getter for the index at given rowNo and colNo of values list.
@@ -164,10 +185,10 @@ class Matrix(object):
     Vector
         Vector of given column number.
     """
-    def getColumnVector(self, column : int) -> Vector:
-        columnVector = Vector.Vector()
+    def getColumnVector(self, column : int) -> list:
+        columnVector = []
         for i in range(self.row):
-            columnVector.add(self.values[i][column])
+            columnVector.append(self.values[i][column])
         return columnVector
 
     """
@@ -480,4 +501,236 @@ class Matrix(object):
         for i in range(rowStart, rowEnd + 1):
             for j in range(colStart, colEnd + 1):
                 result.values[i - rowStart][j - colStart] = self.values[i][j]
+        return result
+
+    """
+    The isSymmetric method compares each item of values list at positions (i, j) with (j, i)
+    and returns true if they are equal, false otherwise.
+
+    RETURNS
+    -------
+    bool
+        true if items are equal, false otherwise.
+    """
+    def isSymmetric(self) -> bool:
+        if self.row != self.col:
+            raise MatrixNotSquare
+        for i in range(self.row - 1):
+            for j in range(self.row):
+                if self.values[i][j] != self.values[j][i]:
+                    return False
+        return True
+
+    """
+    The determinant method first creates a new list, and copies the items of  values
+    list into new list. Then, calculates the determinant of this
+    new list.
+
+    RETURNS
+    -------
+    float
+        determinant of values list.
+    """
+    def determinant(self) -> float:
+        if self.row != self.col:
+            raise MatrixNotSquare
+        det = 1.0
+        copy = self.clone()
+        for i in range(self.row):
+            det *= copy.values[i][i]
+            if det == 0.0:
+                break
+            for j in range(i + 1, self.row):
+                ratio = copy.values[j][i] / copy.values[i][i]
+                for k in range(i, self.col):
+                    copy.values[j][k] = copy.values[j][k] - copy.values[i][k] * ratio
+        return det
+
+    """
+    The inverse method finds the inverse of values list.
+    """
+    def inverse(self):
+        if self.row != self.col:
+            raise MatrixNotSquare
+        b = Matrix(self.row, self.row)
+        indxc = []
+        indxr = []
+        ipiv = []
+        for j in range(self.row):
+            ipiv.append(0)
+        for i in range(1, self.row + 1):
+            big = 0.0
+            irow = -1
+            icol = -1
+            for j in range(1, self.row + 1):
+                if ipiv[j - 1] != 1:
+                    for k in range(1, self.row + 1):
+                        if ipiv[k - 1] == 0:
+                            if abs(self.values[j - 1][k - 1]) >= big:
+                                big = abs(self.values[j - 1][k - 1])
+                                irow = j
+                                icol = k
+            if irow == -1 or icol == -1:
+                raise DeterminantZero
+            ipiv[icol - 1] = ipiv[icol - 1] + 1
+            if irow != icol:
+                for l in range(1, self.row + 1):
+                    dum = self.values[irow - 1][l - 1]
+                    self.values[irow - 1][l - 1] = self.values[icol - 1][l - 1]
+                    self.values[icol - 1][l - 1] = dum
+                for l in range(1, self.row + 1):
+                    dum = b.values[irow - 1][l - 1]
+                    b.values[irow - 1][l - 1] = b.values[icol - 1][l - 1]
+                    b.values[icol - 1][l - 1] = dum
+            indxr.append(irow)
+            indxc.append(icol)
+            if self.values[icol - 1][icol - 1] == 0:
+                raise DeterminantZero
+            pivinv = 1.0 / self.values[icol - 1][icol - 1]
+            self.values[icol - 1][icol - 1] = 1.0
+            for l in range (1, self.row + 1):
+                self.values[icol - 1][l - 1] = self.values[icol - 1][l - 1] * pivinv
+            for l in range(1, self.row + 1):
+                b.values[icol - 1][l - 1] = b.values[icol - 1][l - 1] * pivinv
+            for ll in range(1, self.row + 1):
+                if ll != icol:
+                    dum = self.values[ll - 1][icol - 1]
+                    self.values[ll - 1][icol - 1] = 0.0
+                    for l in range(1, self.row + 1):
+                        self.values[ll - 1][l - 1] = self.values[ll - 1][l - 1] - self.values[icol - 1][l - 1] * dum
+                    for l in range(1, self.row + 1):
+                        b.values[ll - 1][l - 1] = b.values[ll - 1][l - 1] - b.values[icol - 1][l - 1] * dum
+        for l in range(self.row, 0, -1):
+            if indxr[l - 1] != indxc[l - 1]:
+                for k in range(1, self.row + 1):
+                    dum = self.values[k - 1][indxr[l - 1] - 1]
+                    self.values[k - 1][indxr[l - 1] - 1] = self.values[k - 1][indxc[l - 1] - 1]
+                    self.values[k - 1][indxc[l - 1] - 1] = dum
+
+    """
+    The choleskyDecomposition method creates a new Matrix and puts the Cholesky Decomposition of values Array
+    into this Matrix. Also, it throws MatrixNotSymmetric exception if it is not symmetric and
+    MatrixNotPositiveDefinite exception if the summation is negative.
+
+    RETURNS
+    -------
+    Matrix
+        Matrix type output.
+    """
+    def choleskyDecomposition(self) -> Matrix:
+        if not self.isSymmetric():
+            raise MatrixNotSymmetric
+        b = Matrix(self.row, self.col)
+        for i in range(self.row):
+            for j in range(i, self.row):
+                total = self.values[i][j]
+                for k in range(i - 1, -1, -1):
+                    total -= self.values[i][k] * self.values[j][k]
+                if i == j:
+                    if total <= 0.0:
+                        raise MatrixNotPositiveDefinite
+                    b.values[i][i] = math.sqrt(total)
+                else:
+                    b.values[j][i] = total / b.values[i][i]
+        return b
+
+    """
+    The rotate method rotates values list according to given inputs.
+
+    PARAMETERS
+    ----------
+    s : double
+        double input.
+    tau : double 
+        double input.
+    i : int  
+        integer input.
+    j : int  
+        integer input.
+    k : int  
+        integer input.
+    l : int  
+        integer input.
+    """
+    def __rotate(self, s: float, tau: float, i: int, j: int, k: int, l: int):
+        g = self.values[i][j]
+        h = self.values[k][l]
+        self.values[i][j] = g - s * (h + g * tau)
+        self.values[k][l] = h + s * (g - h * tau)
+
+    """
+    The characteristics method finds and returns a sorted list of Eigenvecto}s. And it throws
+    MatrixNotSymmetric exception if it is not symmetric.
+
+    RETURNS
+    -------
+    list
+        A sorted list of Eigenvectors.
+    """
+    def characteristics(self) -> list:
+        if not self.isSymmetric():
+            raise MatrixNotSymmetric
+        matrix1 = self.clone()
+        v = Matrix(self.row, self.row)
+        v.initIdentity()
+        d = []
+        b = []
+        z = []
+        EPS = 0.000000000000000001
+        for ip in range(self.row):
+            b.append(matrix1.values[ip][ip])
+            d.append(matrix1.values[ip][ip])
+            z.append(0.0)
+        for i in range(1, 51):
+            sm = 0.0
+            for ip in range(self.row - 1):
+                for iq in range(ip + 1, self.row):
+                    sm += abs(matrix1.values[ip][iq])
+            if sm == 0.0:
+                break
+            if i < 4:
+                threshold = 0.2 * sm / (self.row ** 2)
+            else:
+                threshold = 0.0
+            for ip in range(self.row - 1):
+                for iq in range(ip + 1, self.row):
+                    g = 100.0 * abs(matrix1.values[ip][iq])
+                    if i > 4 and g <= EPS * abs(d[ip]) and g <= EPS * abs(d[iq]):
+                        matrix1.values[ip][iq] = 0.0
+                    else:
+                        if abs(matrix1.values[ip][iq]) > threshold:
+                            h = d[iq] - d[ip]
+                            if g <= EPS * abs(h):
+                                t = matrix1.values[ip][iq] / h
+                            else:
+                                theta = 0.5 * h / matrix1.values[ip][iq]
+                                t = 1.0 / (abs(theta) + math.sqrt(1.0 + theta ** 2))
+                                if theta < 0.0:
+                                    t = -t
+                            c = 1.0 / math.sqrt(1 + t ** 2)
+                            s = t * c
+                            tau = s / (1.0 + c)
+                            h = t * matrix1.values[ip][iq]
+                            z[ip] -= h
+                            z[iq] += h
+                            d[ip] -= h
+                            d[iq] += h
+                            matrix1.values[ip][iq] = 0.0
+                            for j in range(ip):
+                                matrix1.__rotate(s, tau, j, ip, j, iq)
+                            for j in range(ip + 1, iq):
+                                matrix1.__rotate(s, tau, ip, j, j, iq)
+                            for j in range(iq + 1, self.row):
+                                matrix1.__rotate(s, tau, ip, j, iq, j)
+                            for j in range(self.row):
+                                v.__rotate(s, tau, j, ip, j, iq)
+            for ip in range(self.row):
+                b[ip] = b[ip] + z[ip]
+                d[ip] = b[ip]
+                z[ip] = 0.0
+        result = []
+        for i in range(self.row):
+            if d[i] > 0:
+                result.append(Eigenvector.Eigenvector(d[i], v.getColumnVector(i)))
+        result.sort(key=lambda eigenvector: eigenvector.eigenvalue, reverse=True)
         return result
