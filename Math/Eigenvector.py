@@ -1,4 +1,4 @@
-import Vector
+from Math import Vector
 
 
 class Eigenvector(Vector.Vector):

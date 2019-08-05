@@ -1,16 +1,8 @@
 from __future__ import annotations
 import random
-import Vector
 import math
-import Eigenvector
-import MatrixDimensionMismatch
-import MatrixColumnMismatch
-import MatrixRowMismatch
-import MatrixRowColumnMismatch
-import MatrixNotSquare
-import DeterminantZero
-import MatrixNotSymmetric
-import MatrixNotPositiveDefinite
+from Math import MatrixNotPositiveDefinite, MatrixNotSquare, Eigenvector, MatrixDimensionMismatch, Vector, \
+    MatrixRowMismatch, DeterminantZero, MatrixRowColumnMismatch, MatrixColumnMismatch, MatrixNotSymmetric
 
 
 class Matrix(object):
