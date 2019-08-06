@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(
-    name='Math',
+    name='NlpToolkit-Math',
     version='1.0.0',
     packages=['Math'],
-    url='',
+    url='https://github.com/olcaytaner/Math-Py',
     license='',
-    author='olcay',
-    author_email='',
-    description=''
+    author='olcaytaner',
+    author_email='olcaytaner@isikun.edu.tr',
+    description='Math library'
 )
