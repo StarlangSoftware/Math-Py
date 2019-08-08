@@ -1,6 +1,6 @@
 from __future__ import annotations
 import math
-from Math import VectorSizeMismatch
+from Math.VectorSizeMismatch import VectorSizeMismatch
 
 
 class Vector(object):

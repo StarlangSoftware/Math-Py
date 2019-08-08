@@ -1,8 +1,16 @@
 from __future__ import annotations
 import random
 import math
-from Math import MatrixNotPositiveDefinite, MatrixNotSquare, Eigenvector, MatrixDimensionMismatch, Vector, \
-    MatrixRowMismatch, DeterminantZero, MatrixRowColumnMismatch, MatrixColumnMismatch, MatrixNotSymmetric
+from Math.MatrixNotPositiveDefinite import MatrixNotPositiveDefinite
+from Math.MatrixNotSquare import MatrixNotSquare
+from Math.Eigenvector import Eigenvector
+from Math.MatrixDimensionMismatch import MatrixDimensionMismatch
+from Math.Vector import Vector
+from Math.MatrixRowMismatch import MatrixRowMismatch
+from Math.DeterminantZero import DeterminantZero
+from Math.MatrixRowColumnMismatch import MatrixRowColumnMismatch
+from Math.MatrixColumnMismatch import MatrixColumnMismatch
+from Math.MatrixNotSymmetric import MatrixNotSymmetric
 
 
 class Matrix(object):
@@ -147,7 +155,7 @@ class Matrix(object):
         Vector of values list at given row input.
     """
     def getRowVector(self, row : int) -> Vector:
-        rowVector = Vector.Vector()
+        rowVector = Vector()
         rowList = self.values[row]
         rowVector.initWithVector(rowList)
         return rowVector
@@ -289,7 +297,7 @@ class Matrix(object):
     def multiplyWithVectorFromLeft(self, v: Vector) -> Vector:
         if self.row != v.size():
             raise MatrixRowMismatch
-        result = Vector.Vector()
+        result = Vector()
         for i in range(self.col):
             total = 0.0
             for j in range(self.row):
@@ -316,7 +324,7 @@ class Matrix(object):
     def multiplyWithVectorFromRight(self, v: Vector) -> Vector:
         if self.col != v.size():
             raise MatrixColumnMismatch
-        result = Vector.Vector()
+        result = Vector()
         for i in range(self.row):
             total = 0.0
             for j in range(self.col):
@@ -354,7 +362,7 @@ class Matrix(object):
         Vector that holds column sum.
     """
     def sumOfRows(self) -> Vector:
-        result = Vector.Vector()
+        result = Vector()
         for i in range(self.col):
             result.add(self.columnSum(i))
         return result
@@ -723,6 +731,6 @@ class Matrix(object):
         result = []
         for i in range(self.row):
             if d[i] > 0:
-                result.append(Eigenvector.Eigenvector(d[i], v.getColumnVector(i)))
+                result.append(Eigenvector(d[i], v.getColumnVector(i)))
         result.sort(key=lambda eigenvector: eigenvector.eigenvalue, reverse=True)
         return result
