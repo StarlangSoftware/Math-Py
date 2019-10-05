@@ -5,10 +5,6 @@ from Math.VectorSizeMismatch import VectorSizeMismatch
 
 class Vector(object):
 
-    def __init__(self):
-        self.values = []
-        self.size = 0
-
     """
     A constructor of Vector class which takes a list values as an input. Then, initializes
     values list and size variable with given input and its size.
@@ -18,7 +14,9 @@ class Vector(object):
     values : list
         list input.
     """
-    def initWithVector(self, values: list):
+    def __init__(self, values=None):
+        if values is None:
+            values = []
         self.values = values
         self.size = len(values)
 

@@ -16,8 +16,7 @@ class Eigenvector(Vector.Vector):
         list input.
     """
     def __init__(self, eigenvalue: float, values: list):
-        super().__init__()
-        self.initWithVector(values)
+        super().__init__(values)
         self.eigenvalue = eigenvalue
 
     """

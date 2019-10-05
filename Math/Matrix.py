@@ -155,9 +155,8 @@ class Matrix(object):
         Vector of values list at given row input.
     """
     def getRowVector(self, row : int) -> Vector:
-        rowVector = Vector()
         rowList = self.values[row]
-        rowVector.initWithVector(rowList)
+        rowVector = Vector(rowList)
         return rowVector
 
     """
