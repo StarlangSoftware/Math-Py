@@ -58,22 +58,6 @@ class Matrix(object):
             self.values[i][i] = 1
 
     """
-    The clone method creates new Matrix and copies the content of values list into new matrix.
-
-    RETURNS
-    -------
-    Matrix
-        Matrix which is the copy of values list.
-    """
-    def clone(self) -> Matrix:
-        result = Matrix(self.row, self.col)
-        for i in range(self.row):
-            for j in range(self.col):
-                result.values[i][j] = self.values[i][j]
-        return result
-
-
-    """
     The getter for the index at given rowNo and colNo of values list.
 
     PARAMETERS
