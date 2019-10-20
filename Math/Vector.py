@@ -1,5 +1,7 @@
 from __future__ import annotations
 import math
+
+from Math.Matrix import Matrix
 from Math.VectorSizeMismatch import VectorSizeMismatch
 
 
@@ -283,6 +285,28 @@ class Vector(object):
         for i in range(self.size):
             result.add(self.values[i] * v.values[i])
         return result
+
+    """
+    The multiply method takes a Vector v as an input and creates new Matrix m of [size x size of input v].
+    It loops through the the both values list and given vector's values list, then multiply
+    each item with other with other items and puts to the new Matrix m.
+
+    PARAMETERS
+    ----------
+    v : Vector
+        Vector input.
+        
+    RETURNS
+    -------
+    Matrix
+        Matrix that has multiplication of two vectors.
+    """
+    def multiplyWithVector(self, v: Vector) -> Matrix:
+        m = Matrix(self.size, v.size)
+        for i in range(self.size):
+            for j in range(self.size):
+                m.setValue(i, j, self.values[i] * v.values[j])
+        return m
 
     """
     The divide method takes a double value as an input and divides each item of values list with given value.
