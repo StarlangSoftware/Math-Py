@@ -1,7 +1,9 @@
-from Math import Vector
+from Math.Vector import Vector
 
 
-class Eigenvector(Vector.Vector):
+class Eigenvector(Vector):
+
+    __eigenvalue: float
 
     """
     A constructor of Eigenvector which takes a double eigenValue and an list values as inputs.
@@ -17,7 +19,7 @@ class Eigenvector(Vector.Vector):
     """
     def __init__(self, eigenvalue: float, values: list):
         super().__init__(values)
-        self.eigenvalue = eigenvalue
+        self.__eigenvalue = eigenvalue
 
     """
     The eigenValue method which returns the eigenValue variable.
@@ -27,4 +29,4 @@ class Eigenvector(Vector.Vector):
         eigenValue variable.
     """
     def eigenValue(self) -> float:
-        return self.eigenvalue
+        return self.__eigenvalue
