@@ -10,7 +10,7 @@ class Eigenvector(Vector):
     It calls its super class Vector with values list and initializes eigenValue variable with its
     eigenValue input.
 
-    Parameters
+    PARAMETERS
     ----------
     eigenvalue : double
         eigenValue double input.
@@ -23,7 +23,8 @@ class Eigenvector(Vector):
 
     """
     The eigenValue method which returns the eigenValue variable.
-    Returns
+
+    RETURNS
     -------
     double
         eigenValue variable.

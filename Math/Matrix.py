@@ -20,46 +20,37 @@ class Matrix(object):
     __values: list
 
     """
-    Constructor of Matrix class which takes row and column numbers as inputs.
+    Constructor of Matrix class which takes row and column numbers (Vectors) as inputs.
 
     PARAMETERS
     ----------
-    row : int
+    row : int (or Vector)
         is used to create matrix.
-    col : int
+    col : int (or Vector)
         is used to create matrix.
     """
-    def __init__(self, row : int, col : int):
-        self.__row = row
-        self.__col = col
-        self.initZeros()
+    def __init__(self, row, col, minValue=None, maxValue=None):
+        if isinstance(row, int) and isinstance(col, int):
+            self.__row = row
+            self.__col = col
+            if minValue is None:
+                self.initZeros()
+            elif maxValue is None:
+                self.initZeros()
+                for i in range(self.__row):
+                    self.__values[i][i] = minValue
+            else:
+                self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in range(self.__row)]
+        elif isinstance(row, Vector) and isinstance(col, Vector):
+            self.__row = row.size()
+            self.__col = col.size()
+            self.initZeros()
+            for i in range(row.size()):
+                for j in range(col.size()):
+                    self.__values[i][j] = row.getValue(i) * col.getValue(j)
 
     def initZeros(self):
-        self.__values = [[0 for j in range(self.__col)] for i in range(self.__row)]
-
-    """
-    Another initializer of Matrix class which takes minimum and maximum values as inputs.
-    It creates new values list with given row and column numbers. Then fills in the
-    positions with random numbers using minimum and maximum inputs.
-
-    PARAMETERS
-    ----------
-    min : double 
-        minimum value.
-    max : double
-        maximum value.
-    """
-    def initRandom(self, minValue : float, maxValue : float):
-        self.__values = [[random.uniform(minValue, maxValue) for j in range(self.__col)] for i in range(self.__row)]
-
-    """
-    Another constructor of Matrix class which takes size as input and creates new values list
-    with using size input and assigns 1 to each element at the diagonal.
-    """
-    def initIdentity(self):
-        self.initZeros()
-        for i in range(self.__row):
-            self.__values[i][i] = 1
+        self.__values = [[0 for _ in range(self.__col)] for _ in range(self.__row)]
 
     """
     The getter for the index at given rowNo and colNo of values list.
@@ -483,7 +474,7 @@ class Matrix(object):
     Matrix
         result Matrix.
     """
-    def partial(self, rowStart: int, rowEnd: int, colStart: int, colEnd: int) -> Matrix:
+    def partial(self, rowStart:int, rowEnd:int, colStart:int, colEnd:int) -> Matrix:
         result = Matrix(rowEnd - rowStart + 1, colEnd - colStart + 1)
         for i in range(rowStart, rowEnd + 1):
             for j in range(colStart, colEnd + 1):
@@ -575,7 +566,7 @@ class Matrix(object):
                 raise DeterminantZero
             pivinv = 1.0 / self.__values[icol - 1][icol - 1]
             self.__values[icol - 1][icol - 1] = 1.0
-            for l in range (1, self.__row + 1):
+            for l in range(1, self.__row + 1):
                 self.__values[icol - 1][l - 1] = self.__values[icol - 1][l - 1] * pivinv
             for l in range(1, self.__row + 1):
                 b.__values[icol - 1][l - 1] = b.__values[icol - 1][l - 1] * pivinv
@@ -658,8 +649,7 @@ class Matrix(object):
         if not self.isSymmetric():
             raise MatrixNotSymmetric
         matrix1 = self.clone()
-        v = Matrix(self.__row, self.__row)
-        v.initIdentity()
+        v = Matrix(self.__row, self.__row, 1.0)
         d = []
         b = []
         z = []

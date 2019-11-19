@@ -1,7 +1,6 @@
 from __future__ import annotations
 import math
 
-from Math.Matrix import Matrix
 from Math.VectorSizeMismatch import VectorSizeMismatch
 
 
@@ -14,7 +13,7 @@ class Vector(object):
     A constructor of Vector class which takes a list values as an input. Then, initializes
     values list and size variable with given input and its size.
 
-    Parameters
+    PARAMETERS
     ----------
     values : list
         list input.
@@ -29,7 +28,7 @@ class Vector(object):
     Another constructor of Vector class which takes integer size and double x as inputs. Then, initializes size
     variable with given size input and creates new values list and adds given input x to values list.
 
-    Parameters
+    PARAMETERS
     ----------
     size : int
         list size.
@@ -47,7 +46,7 @@ class Vector(object):
     Then, initializes size variable with given size input and creates new values list and adds 0.0 to 
     values list. Then, sets the item of values list at given index as given input x.
 
-    Parameters
+    PARAMETERS
     ----------
     size : int 
         list size.
@@ -67,8 +66,8 @@ class Vector(object):
     The biased method creates a list result, add adds each item of values list into the result list.
     Then, insert 1.0 to 0th position and return result list.
     
-    Returns
-    ----------
+    RETURNS
+    -------
     list
         result list.
     """
@@ -82,7 +81,7 @@ class Vector(object):
     """
     The add method adds given input to the values {@link ArrayList} and increments the size variable by one.
 
-    Parameters
+    PARAMETERS
     ----------
     x : double 
         input to add values list.
@@ -94,7 +93,7 @@ class Vector(object):
     """
     The insert method puts given input to the given index of values list and increments the size variable by one.
 
-    Parameters
+    PARAMETERS
     ----------
     pos : int 
         index to insert input.
@@ -108,7 +107,7 @@ class Vector(object):
     """
     The remove method deletes the item at given input position of values list and decrements the size variable by one.
 
-    Parameters
+    PARAMETERS
     ----------
     pos : int 
         index to remove from values list.
@@ -129,8 +128,8 @@ class Vector(object):
     and if a greater value than the current maximum item comes, it updates the maximum item and returns the final
     maximum item's index.
 
-    Returns
-    ----------
+    RETURNS
+    -------
     int
         final maximum item's index.
     """
@@ -156,15 +155,15 @@ class Vector(object):
     value to i. While i is less than the size, it adds the ith item of values {@link ArrayList} to the result and 
     increments i by given mod input.
 
-    Parameters
+    PARAMETERS
     ----------
     mod : int   
         integer input.
     value : int
         integer input.
 
-    Returns
-    ----------
+    RETURNS
+    -------
     Vector
         result Vector.
     """
@@ -180,7 +179,7 @@ class Vector(object):
     The add method takes a Vector v as an input. It sums up the corresponding elements of both given vector's
     values list and values list and puts result back to the values list.
 
-    Parameters
+    PARAMETERS
     ----------
     v : Vector
         Vector to add.
@@ -195,7 +194,7 @@ class Vector(object):
     The subtract method takes a Vector v as an input. It subtracts the corresponding elements of given vector's
     values list from values list and puts result back to the values list.
 
-    Parameters
+    PARAMETERS
     ----------
     v : Vector
         Vector to subtract from values list.
@@ -211,13 +210,13 @@ class Vector(object):
     subtracts the corresponding elements of given vector's values list from values list and puts
     result back to the result.
 
-    Parameters
+    PARAMETERS
     ----------
     v : Vector
         Vector to find difference from values list.
     
-    Returns
-    ----------
+    RETURNS
+    -------
     Vector
         new Vector with result list.
     """
@@ -234,13 +233,13 @@ class Vector(object):
     multiplies the corresponding elements of given vector's values list with values list and assigns
     the multiplication to the result.
 
-    Parameters
+    PARAMETERS
     ----------
     v : Vector
         Vector to find dot product.
 
-    Returns
-    ----------
+    RETURNS
+    -------
     double 
         result.
     """
@@ -256,8 +255,8 @@ class Vector(object):
     The dotProduct method creates a new double variable result, then squares the elements of values list and assigns
     the accumulation to the result.
 
-    Returns
-    ----------
+    RETURNS
+    -------
     double 
         result.
     """
@@ -272,13 +271,13 @@ class Vector(object):
     multiplies the corresponding elements of given vector's values list with values list and adds
     the multiplication to the result list. 
 
-    Parameters
+    PARAMETERS
     ----------
     v : Vector
         Vector to find dot product.
 
-    Returns
-    ----------
+    RETURNS
+    -------
     Vector 
         with result list.
     """
@@ -291,31 +290,9 @@ class Vector(object):
         return result
 
     """
-    The multiply method takes a Vector v as an input and creates new Matrix m of [size x size of input v].
-    It loops through the the both values list and given vector's values list, then multiply
-    each item with other with other items and puts to the new Matrix m.
-
-    PARAMETERS
-    ----------
-    v : Vector
-        Vector input.
-        
-    RETURNS
-    -------
-    Matrix
-        Matrix that has multiplication of two vectors.
-    """
-    def multiplyWithVector(self, v: Vector) -> Matrix:
-        m = Matrix(self.__size, v.__size)
-        for i in range(self.__size):
-            for j in range(self.__size):
-                m.setValue(i, j, self.__values[i] * v.__values[j])
-        return m
-
-    """
     The divide method takes a double value as an input and divides each item of values list with given value.
 
-    Parameters
+    PARAMETERS
     ----------
     value : double
         is used to divide items of values list.
@@ -327,7 +304,7 @@ class Vector(object):
     """
     The multiply method takes a double value as an input and multiplies each item of values list with given value.
 
-    Parameters
+    PARAMETERS
     ----------
     value : double
         is used to multiply items of values list.
@@ -340,13 +317,13 @@ class Vector(object):
     The product method takes a double value as an input and creates a new result {@link Vector}, then multiplies each
     item of values {@link ArrayList} with given value and adds to the result {@link Vector}.
 
-    Parameters
+    PARAMETERS
     ----------
     value : double
         is used to multiply items of values list.
         
-    Returns
-    ----------
+    RETURNS
+    -------
     Vector 
         Vector result.
     """
@@ -371,9 +348,9 @@ class Vector(object):
     The l2Norm method is used to apply Least Squares, it accumulates second power of each items of values list
     and returns the square root of this summation.
 
-    Returns
-    ----------
-    double
+    RETURNS
+    -------
+    float
         square root of this summation.
     """
     def l2Norm(self) -> float:
@@ -386,14 +363,14 @@ class Vector(object):
     The cosineSimilarity method takes a Vector v as an input and returns the result of dotProduct(v) 
     / l2Norm() / v.l2Norm().
 
-    Parameters
+    PARAMETERS
     ----------
     v : Vector 
         input.
         
-    Returns
-    ----------
-    double
+    RETURNS
+    -------
+    float
         dotProduct(v) / l2Norm() / v.l2Norm()
     """
     def cosineSimilarity(self, v: Vector) -> float:
@@ -404,8 +381,8 @@ class Vector(object):
     """
     The size method returns the size of the values list
 
-    Returns
-    ----------
+    RETURNS
+    -------
     int
         size of the values list
     """
@@ -415,13 +392,13 @@ class Vector(object):
     """
     Getter for the item at given index of values list
 
-    Parameters
+    PARAMETERS
     ----------
     index : int
         index used to get an item.
 
-    Returns
-    ----------
+    RETURNS
+    -------
     item
         the item at given index.
     """
@@ -431,7 +408,7 @@ class Vector(object):
     """
     Setter for the setting the value at given index of values list.
 
-    Parameters
+    PARAMETERS
     ----------
     index : int
         index to set.
@@ -444,7 +421,7 @@ class Vector(object):
     """
     The addValue method adds the given value to the item at given index of values list.
 
-    Parameters
+    PARAMETERS
     ----------
     index : int
         index to add the given value.
