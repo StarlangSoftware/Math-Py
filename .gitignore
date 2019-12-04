@@ -380,3 +380,10 @@ NlpToolkit_Math.egg-info/dependency_links.txt
 NlpToolkit_Math.egg-info/PKG-INFO
 NlpToolkit_Math.egg-info/SOURCES.txt
 NlpToolkit_Math.egg-info/top_level.txt
+dist/NlpToolkit-Math-1.0.3.tar.gz
+dist/NlpToolkit-Math-1.0.4.tar.gz
+dist/NlpToolkit-Math-1.0.5.tar.gz
+dist/NlpToolkit-Math-1.0.6.tar.gz
+Math/__pycache__/DiscreteDistribution.cpython-37.pyc
+Math/__pycache__/Distribution.cpython-37.pyc
+Math/__pycache__/Matrix.cpython-37.pyc
