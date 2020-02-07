@@ -387,3 +387,4 @@ dist/NlpToolkit-Math-1.0.6.tar.gz
 Math/__pycache__/DiscreteDistribution.cpython-37.pyc
 Math/__pycache__/Distribution.cpython-37.pyc
 Math/__pycache__/Matrix.cpython-37.pyc
+/dist/
