@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import copy
 import random
 import math
 from Math.MatrixNotPositiveDefinite import MatrixNotPositiveDefinite
@@ -14,7 +16,6 @@ from Math.MatrixNotSymmetric import MatrixNotSymmetric
 
 
 class Matrix(object):
-
     __row: int
     __col: int
     __values: list
@@ -29,6 +30,7 @@ class Matrix(object):
     col : int (or Vector)
         is used to create matrix.
     """
+
     def __init__(self, row, col, minValue=None, maxValue=None):
         if isinstance(row, int) and isinstance(col, int):
             self.__row = row
@@ -40,7 +42,8 @@ class Matrix(object):
                 for i in range(self.__row):
                     self.__values[i][i] = minValue
             else:
-                self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in range(self.__row)]
+                self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in
+                                 range(self.__row)]
         elif isinstance(row, Vector) and isinstance(col, Vector):
             self.__row = row.size()
             self.__col = col.size()
@@ -67,6 +70,7 @@ class Matrix(object):
     double
         item at given index of values list.
     """
+
     def getValue(self, rowNo: int, colNo: int) -> float:
         return self.__values[rowNo][colNo]
 
@@ -82,6 +86,7 @@ class Matrix(object):
     value : double
         is used to set at given index.
     """
+
     def setValue(self, rowNo: int, colNo: int, value: float):
         self.__values[rowNo][colNo] = value
 
@@ -97,6 +102,7 @@ class Matrix(object):
     value : double
         is used to add to given item at given index.
     """
+
     def addValue(self, rowNo: int, colNo: int, value: float):
         self.__values[rowNo][colNo] += value
 
@@ -106,6 +112,7 @@ class Matrix(object):
      * @param rowNo integer input for row number.
      * @param colNo integer input for column number.
     """
+
     def increment(self, rowNo: int, colNo: int):
         self.__values[rowNo][colNo] += 1
 
@@ -117,6 +124,7 @@ class Matrix(object):
     int
         row number.
     """
+
     def getRow(self) -> int:
         return self.__row
 
@@ -133,6 +141,7 @@ class Matrix(object):
     Vector
         Vector of values list at given row input.
     """
+
     def getRowVector(self, row: int) -> Vector:
         rowList = self.__values[row]
         rowVector = Vector(rowList)
@@ -146,6 +155,7 @@ class Matrix(object):
     int
         column number.
     """
+
     def getColumn(self) -> int:
         return self.__col
 
@@ -163,6 +173,7 @@ class Matrix(object):
     Vector
         Vector of given column number.
     """
+
     def getColumnVector(self, column: int) -> list:
         columnVector = []
         for i in range(self.__row):
@@ -173,6 +184,7 @@ class Matrix(object):
     The columnWiseNormalize method, first accumulates items column by column then divides items 
     by the summation.
     """
+
     def columnWiseNormalize(self):
         for i in range(self.__row):
             total = sum(self.__values[i])
@@ -187,6 +199,7 @@ class Matrix(object):
     constant : double
         constant value to multiply items of values list.
     """
+
     def multiplyWithConstant(self, constant: float):
         for i in range(self.__row):
             self.__values[i][:] = [x * constant for x in self.__values[i]]
@@ -200,6 +213,7 @@ class Matrix(object):
     constant : double
         constant value to divide items of values list.
     """
+
     def divideByConstant(self, constant: float):
         for i in range(self.__row):
             self.__values[i][:] = [x / constant for x in self.__values[i]]
@@ -214,6 +228,7 @@ class Matrix(object):
     m : Matrix
         Matrix type input.
     """
+
     def add(self, m: Matrix):
         if self.__row != m.__row or self.__col != m.__col:
             raise MatrixDimensionMismatch
@@ -233,6 +248,7 @@ class Matrix(object):
     v : Vector    
         Vector type input.
     """
+
     def addRowVector(self, rowNo: int, v: Vector):
         if self.__col != v.size():
             raise MatrixColumnMismatch
@@ -249,6 +265,7 @@ class Matrix(object):
     m : Matrix
         Matrix type input.
     """
+
     def subtract(self, m: Matrix):
         if self.__row != m.__row or self.__col != m.__col:
             raise MatrixDimensionMismatch
@@ -272,6 +289,7 @@ class Matrix(object):
     Vector
         Vector that holds the result.
     """
+
     def multiplyWithVectorFromLeft(self, v: Vector) -> Vector:
         if self.__row != v.size():
             raise MatrixRowMismatch
@@ -299,6 +317,7 @@ class Matrix(object):
     Vector
         Vector that holds the result.
     """
+
     def multiplyWithVectorFromRight(self, v: Vector) -> Vector:
         if self.__col != v.size():
             raise MatrixColumnMismatch
@@ -324,6 +343,7 @@ class Matrix(object):
     double
         summation of given column of values list.
     """
+
     def columnSum(self, columnNo: int) -> float:
         total = 0
         for i in range(self.__row):
@@ -339,6 +359,7 @@ class Matrix(object):
     Vector
         Vector that holds column sum.
     """
+
     def sumOfRows(self) -> Vector:
         result = Vector()
         for i in range(self.__col):
@@ -351,6 +372,7 @@ class Matrix(object):
      * @param rowNo Row number input.
      * @return summation of given row of values {@link java.lang.reflect.Array}.
     """
+
     def rowSum(self, rowNo: int) -> float:
         return sum(self.__values[rowNo])
 
@@ -370,6 +392,7 @@ class Matrix(object):
     Matrix
         result Matrix.
     """
+
     def multiply(self, m: Matrix) -> Matrix:
         if self.__col != m.__row:
             raise MatrixRowColumnMismatch
@@ -397,6 +420,7 @@ class Matrix(object):
     Matrix
         result Matrix.
     """
+
     def elementProduct(self, m: Matrix) -> Matrix:
         if self.__row != m.__row or self.__col != m.__col:
             raise MatrixDimensionMismatch
@@ -415,6 +439,7 @@ class Matrix(object):
     float
         sum of the items of values list.
     """
+
     def sumOfElements(self) -> float:
         total = 0.0
         for i in range(self.__row):
@@ -429,6 +454,7 @@ class Matrix(object):
     float
         sum of items at diagonal.
     """
+
     def trace(self) -> float:
         if self.__row != self.__col:
             raise MatrixNotSquare
@@ -446,6 +472,7 @@ class Matrix(object):
     Matrix
         Matrix type output.
     """
+
     def transpose(self) -> Matrix:
         result = Matrix(self.__col, self.__row)
         for i in range(self.__row):
@@ -474,7 +501,8 @@ class Matrix(object):
     Matrix
         result Matrix.
     """
-    def partial(self, rowStart:int, rowEnd:int, colStart:int, colEnd:int) -> Matrix:
+
+    def partial(self, rowStart: int, rowEnd: int, colStart: int, colEnd: int) -> Matrix:
         result = Matrix(rowEnd - rowStart + 1, colEnd - colStart + 1)
         for i in range(rowStart, rowEnd + 1):
             for j in range(colStart, colEnd + 1):
@@ -490,6 +518,7 @@ class Matrix(object):
     bool
         true if items are equal, false otherwise.
     """
+
     def isSymmetric(self) -> bool:
         if self.__row != self.__col:
             raise MatrixNotSquare
@@ -509,24 +538,26 @@ class Matrix(object):
     float
         determinant of values list.
     """
+
     def determinant(self) -> float:
         if self.__row != self.__col:
             raise MatrixNotSquare
         det = 1.0
-        copy = self.clone()
+        copyOfMatrix = copy.deepcopy(self)
         for i in range(self.__row):
-            det *= copy.values[i][i]
+            det *= copyOfMatrix.__values[i][i]
             if det == 0.0:
                 break
             for j in range(i + 1, self.__row):
-                ratio = copy.values[j][i] / copy.values[i][i]
+                ratio = copyOfMatrix.__values[j][i] / copyOfMatrix.__values[i][i]
                 for k in range(i, self.__col):
-                    copy.values[j][k] = copy.values[j][k] - copy.values[i][k] * ratio
+                    copyOfMatrix.__values[j][k] = copyOfMatrix.__values[j][k] - copyOfMatrix.__values[i][k] * ratio
         return det
 
     """
     The inverse method finds the inverse of values list.
     """
+
     def inverse(self):
         if self.__row != self.__col:
             raise MatrixNotSquare
@@ -575,7 +606,8 @@ class Matrix(object):
                     dum = self.__values[ll - 1][icol - 1]
                     self.__values[ll - 1][icol - 1] = 0.0
                     for l in range(1, self.__row + 1):
-                        self.__values[ll - 1][l - 1] = self.__values[ll - 1][l - 1] - self.__values[icol - 1][l - 1] * dum
+                        self.__values[ll - 1][l - 1] = self.__values[ll - 1][l - 1] - self.__values[icol - 1][
+                            l - 1] * dum
                     for l in range(1, self.__row + 1):
                         b.__values[ll - 1][l - 1] = b.__values[ll - 1][l - 1] - b.__values[icol - 1][l - 1] * dum
         for l in range(self.__row, 0, -1):
@@ -595,6 +627,7 @@ class Matrix(object):
     Matrix
         Matrix type output.
     """
+
     def choleskyDecomposition(self) -> Matrix:
         if not self.isSymmetric():
             raise MatrixNotSymmetric
@@ -630,6 +663,7 @@ class Matrix(object):
     l : int  
         integer input.
     """
+
     def __rotate(self, s: float, tau: float, i: int, j: int, k: int, l: int):
         g = self.__values[i][j]
         h = self.__values[k][l]
@@ -645,24 +679,25 @@ class Matrix(object):
     list
         A sorted list of Eigenvectors.
     """
+
     def characteristics(self) -> list:
         if not self.isSymmetric():
             raise MatrixNotSymmetric
-        matrix1 = self.clone()
+        matrix1 = copy.deepcopy(self)
         v = Matrix(self.__row, self.__row, 1.0)
         d = []
         b = []
         z = []
         EPS = 0.000000000000000001
         for ip in range(self.__row):
-            b.append(matrix1.values[ip][ip])
-            d.append(matrix1.values[ip][ip])
+            b.append(matrix1.__values[ip][ip])
+            d.append(matrix1.__values[ip][ip])
             z.append(0.0)
         for i in range(1, 51):
             sm = 0.0
             for ip in range(self.__row - 1):
                 for iq in range(ip + 1, self.__row):
-                    sm += abs(matrix1.values[ip][iq])
+                    sm += abs(matrix1.__values[ip][iq])
             if sm == 0.0:
                 break
             if i < 4:
@@ -671,28 +706,28 @@ class Matrix(object):
                 threshold = 0.0
             for ip in range(self.__row - 1):
                 for iq in range(ip + 1, self.__row):
-                    g = 100.0 * abs(matrix1.values[ip][iq])
+                    g = 100.0 * abs(matrix1.__values[ip][iq])
                     if i > 4 and g <= EPS * abs(d[ip]) and g <= EPS * abs(d[iq]):
-                        matrix1.values[ip][iq] = 0.0
+                        matrix1.__values[ip][iq] = 0.0
                     else:
-                        if abs(matrix1.values[ip][iq]) > threshold:
+                        if abs(matrix1.__values[ip][iq]) > threshold:
                             h = d[iq] - d[ip]
                             if g <= EPS * abs(h):
-                                t = matrix1.values[ip][iq] / h
+                                t = matrix1.__values[ip][iq] / h
                             else:
-                                theta = 0.5 * h / matrix1.values[ip][iq]
+                                theta = 0.5 * h / matrix1.__values[ip][iq]
                                 t = 1.0 / (abs(theta) + math.sqrt(1.0 + theta ** 2))
                                 if theta < 0.0:
                                     t = -t
                             c = 1.0 / math.sqrt(1 + t ** 2)
                             s = t * c
                             tau = s / (1.0 + c)
-                            h = t * matrix1.values[ip][iq]
+                            h = t * matrix1.__values[ip][iq]
                             z[ip] -= h
                             z[iq] += h
                             d[ip] -= h
                             d[iq] += h
-                            matrix1.values[ip][iq] = 0.0
+                            matrix1.__values[ip][iq] = 0.0
                             for j in range(ip):
                                 matrix1.__rotate(s, tau, j, ip, j, iq)
                             for j in range(ip + 1, iq):

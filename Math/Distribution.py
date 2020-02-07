@@ -14,8 +14,8 @@ class Distribution(object):
     F_MAX = 9999.0
 
     """
-    The ex method takes a double x as an input, if x is less than -BIGX it returns 0, otherwise it returns Euler's number
-    e raised to the power of x.
+    The ex method takes a double x as an input, if x is less than -BIGX it returns 0, otherwise it returns Euler's 
+    number e raised to the power of x.
 
     PARAMETERS
     ----------
@@ -35,7 +35,8 @@ class Distribution(object):
 
     """
     The beta method takes a double list x as an input. It loops through x and accumulates
-    the value of gammaLn(x), also it sums up the items of x and returns (accumulated result - gammaLn of this summation).
+    the value of gammaLn(x), also it sums up the items of x and returns (accumulated result - gammaLn of this 
+    summation).
 
     PARAMETERS
     ----------
@@ -49,16 +50,17 @@ class Distribution(object):
     """
     @staticmethod
     def beta(x: list) -> float:
-        sum = 0.0
+        total = 0.0
         result = 0.0
         for i in range(len(x)):
             result += Distribution.gammaLn(x[i])
-            sum += x[i]
-        result -= Distribution.gammaLn(sum)
+            total += x[i]
+        result -= Distribution.gammaLn(total)
         return result
 
     """
-    The gammaLn method takes a double x as an input and returns the logarithmic result of the gamma distribution at point x.
+    The gammaLn method takes a double x as an input and returns the logarithmic result of the gamma distribution at 
+    point x.
 
     PARAMETERS
     ----------
@@ -72,7 +74,8 @@ class Distribution(object):
     """
     @staticmethod
     def gammaLn(x: float) -> float:
-        cof = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5]
+        cof = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2,
+               -0.5395239384953e-5]
         y = x
         tmp = x + 5.5
         tmp -= (x + 0.5) * math.log(tmp)
@@ -107,10 +110,16 @@ class Distribution(object):
             else:
                 if y < 1.0:
                     w = y * y
-                    x = ((((((((0.000124818987 * w - 0.001075204047) * w + 0.005198775019) * w - 0.019198292004) * w + 0.059054035642) * w - 0.151968751364) * w + 0.319152932694) * w - 0.531923007300) * w + 0.797884560593) * y * 2.0
+                    x = ((((((((0.000124818987 * w - 0.001075204047) * w + 0.005198775019) * w - 0.019198292004) * w
+                             + 0.059054035642) * w - 0.151968751364) * w + 0.319152932694) * w - 0.531923007300) * w
+                         + 0.797884560593) * y * 2.0
                 else:
                     y -= 2.0
-                    x = (((((((((((((-0.000045255659 * y + 0.000152529290) * y - 0.000019538132) * y - 0.000676904986) * y + 0.001390604284) * y - 0.000794620820) * y - 0.002034254874) * y + 0.006549791214) * y - 0.010557625006) * y + 0.011630447319) * y - 0.009279453341) * y + 0.005353579108) * y - 0.002141268741) * y + 0.000535310849) * y + 0.999936657524
+                    x = (((((((((((((-0.000045255659 * y + 0.000152529290) * y - 0.000019538132) * y
+                                   - 0.000676904986) * y + 0.001390604284) * y - 0.000794620820) * y
+                                - 0.002034254874) * y + 0.006549791214) * y - 0.010557625006) * y + 0.011630447319) * y
+                            - 0.009279453341) * y + 0.005353579108) * y - 0.002141268741) * y + 0.000535310849) * y \
+                        + 0.999936657524
         if z > 0.0:
             return (x + 1.0) * 0.5
         else:
@@ -344,8 +353,9 @@ class Distribution(object):
         return fval
 
     """
-    The tDistribution method is used instead of the normal distribution when there is small samples. It takes a double input T
-    and an integer freedom for degree of freedom as inputs. It returns the T-Distribution result by using F-Distribution method.
+    The tDistribution method is used instead of the normal distribution when there is small samples. It takes a double 
+    input T and an integer freedom for degree of freedom as inputs. It returns the T-Distribution result by using 
+    F-Distribution method.
 
     PARAMETERS
     ----------
