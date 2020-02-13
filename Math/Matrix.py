@@ -20,18 +20,17 @@ class Matrix(object):
     __col: int
     __values: list
 
-    """
-    Constructor of Matrix class which takes row and column numbers (Vectors) as inputs.
-
-    PARAMETERS
-    ----------
-    row : int (or Vector)
-        is used to create matrix.
-    col : int (or Vector)
-        is used to create matrix.
-    """
-
     def __init__(self, row, col, minValue=None, maxValue=None):
+        """
+        Constructor of Matrix class which takes row and column numbers (Vectors) as inputs.
+
+        PARAMETERS
+        ----------
+        row : int (or Vector)
+            is used to create matrix.
+        col : int (or Vector)
+            is used to create matrix.
+        """
         if isinstance(row, int) and isinstance(col, int):
             self.__row = row
             self.__col = col
@@ -55,242 +54,231 @@ class Matrix(object):
     def initZeros(self):
         self.__values = [[0 for _ in range(self.__col)] for _ in range(self.__row)]
 
-    """
-    The getter for the index at given rowNo and colNo of values list.
-
-    PARAMETERS
-    ----------
-    rowNo : int 
-        integer input for row number.
-    colNo : int 
-        integer input for column number.
-        
-    RETURNS
-    -------
-    double
-        item at given index of values list.
-    """
-
     def getValue(self, rowNo: int, colNo: int) -> float:
+        """
+        The getter for the index at given rowNo and colNo of values list.
+
+        PARAMETERS
+        ----------
+        rowNo : int
+            integer input for row number.
+        colNo : int
+            integer input for column number.
+
+        RETURNS
+        -------
+        double
+            item at given index of values list.
+        """
         return self.__values[rowNo][colNo]
 
-    """
-    The setter for the value at given index of values list.
-
-    PARAMETERS
-    ----------
-    rowNo : int 
-        integer input for row number.
-    colNo : int 
-        integer input for column number.
-    value : double
-        is used to set at given index.
-    """
-
     def setValue(self, rowNo: int, colNo: int, value: float):
+        """
+        The setter for the value at given index of values list.
+
+        PARAMETERS
+        ----------
+        rowNo : int
+            integer input for row number.
+        colNo : int
+            integer input for column number.
+        value : double
+            is used to set at given index.
+        """
         self.__values[rowNo][colNo] = value
 
-    """
-    The addValue method adds the given value to the item at given index of values list.
-
-    PARAMETERS
-    ----------
-    rowNo : int 
-        integer input for row number.
-    colNo : int 
-        integer input for column number.
-    value : double
-        is used to add to given item at given index.
-    """
-
     def addValue(self, rowNo: int, colNo: int, value: float):
+        """
+        The addValue method adds the given value to the item at given index of values list.
+
+        PARAMETERS
+        ----------
+        rowNo : int
+            integer input for row number.
+        colNo : int
+            integer input for column number.
+        value : double
+            is used to add to given item at given index.
+        """
         self.__values[rowNo][colNo] += value
 
-    """
-     * The increment method adds 1 to the item at given index of values list.
-     *
-     * @param rowNo integer input for row number.
-     * @param colNo integer input for column number.
-    """
-
     def increment(self, rowNo: int, colNo: int):
+        """
+        The increment method adds 1 to the item at given index of values list.
+
+        PARAMETERS
+        ----------
+        rowNo : int
+            integer input for row number.
+        colNo : int
+            integer input for column number.
+        """
         self.__values[rowNo][colNo] += 1
 
-    """
-    The getter for the row variable.
-
-    RETURNS
-    -------
-    int
-        row number.
-    """
-
     def getRow(self) -> int:
+        """
+        The getter for the row variable.
+
+        RETURNS
+        -------
+        int
+            row number.
+        """
         return self.__row
 
-    """
-    The getRowVector method returns the vector of values list at given row input.
-
-    PARAMETERS
-    ----------
-    row : int 
-        row integer input for row number.
-
-    RETURNS
-    -------
-    Vector
-        Vector of values list at given row input.
-    """
-
     def getRowVector(self, row: int) -> Vector:
+        """
+        The getRowVector method returns the vector of values list at given row input.
+
+        PARAMETERS
+        ----------
+        row : int
+            row integer input for row number.
+
+        RETURNS
+        -------
+        Vector
+            Vector of values list at given row input.
+        """
         rowList = self.__values[row]
         rowVector = Vector(rowList)
         return rowVector
 
-    """
-    The getter for the col variable.
-
-    RETURNS
-    -------
-    int
-        column number.
-    """
-
     def getColumn(self) -> int:
+        """
+        The getter for the col variable.
+
+        RETURNS
+        -------
+        int
+            column number.
+        """
         return self.__col
 
-    """
-     * The getColumnVector method creates a Vector and adds items at given column number of values list
-     * to the Vector.
-
-    PARAMETERS
-    ----------
-    column : int
-        column integer input for column number.
-        
-    RETURNS
-    -------
-    Vector
-        Vector of given column number.
-    """
-
     def getColumnVector(self, column: int) -> list:
+        """
+         * The getColumnVector method creates a Vector and adds items at given column number of values list
+         * to the Vector.
+
+        PARAMETERS
+        ----------
+        column : int
+            column integer input for column number.
+
+        RETURNS
+        -------
+        Vector
+            Vector of given column number.
+        """
         columnVector = []
         for i in range(self.__row):
             columnVector.append(self.__values[i][column])
         return columnVector
 
-    """
-    The columnWiseNormalize method, first accumulates items column by column then divides items 
-    by the summation.
-    """
-
     def columnWiseNormalize(self):
+        """
+        The columnWiseNormalize method, first accumulates items column by column then divides items
+        by the summation.
+        """
         for i in range(self.__row):
             total = sum(self.__values[i])
             self.__values[i][:] = [x / total for x in self.__values[i]]
 
-    """
-    The multiplyWithConstant method takes a constant as an input and multiplies each item of values list
-    with given constant.
-
-    PARAMETERS
-    ----------
-    constant : double
-        constant value to multiply items of values list.
-    """
-
     def multiplyWithConstant(self, constant: float):
+        """
+        The multiplyWithConstant method takes a constant as an input and multiplies each item of values list
+        with given constant.
+
+        PARAMETERS
+        ----------
+        constant : double
+            constant value to multiply items of values list.
+        """
         for i in range(self.__row):
             self.__values[i][:] = [x * constant for x in self.__values[i]]
 
-    """
-    The divideByConstant method takes a constant as an input and divides each item of values list
-    with given constant.
-
-    PARAMETERS
-    ----------
-    constant : double
-        constant value to divide items of values list.
-    """
-
     def divideByConstant(self, constant: float):
+        """
+        The divideByConstant method takes a constant as an input and divides each item of values list
+        with given constant.
+
+        PARAMETERS
+        ----------
+        constant : double
+            constant value to divide items of values list.
+        """
         for i in range(self.__row):
             self.__values[i][:] = [x / constant for x in self.__values[i]]
 
-    """
-    The add method takes a Matrix as an input and accumulates values list with the
-    corresponding items of given Matrix. If the sizes of both Matrix and values list do not match,
-    it throws MatrixDimensionMismatch exception.
-
-    PARAMETERS
-    ----------
-    m : Matrix
-        Matrix type input.
-    """
-
     def add(self, m: Matrix):
+        """
+        The add method takes a Matrix as an input and accumulates values list with the
+        corresponding items of given Matrix. If the sizes of both Matrix and values list do not match,
+        it throws MatrixDimensionMismatch exception.
+
+        PARAMETERS
+        ----------
+        m : Matrix
+            Matrix type input.
+        """
         if self.__row != m.__row or self.__col != m.__col:
             raise MatrixDimensionMismatch
         for i in range(self.__row):
             for j in range(self.__col):
                 self.__values[i][j] += m.__values[i][j]
 
-    """
-    The add method which takes a row number and a Vector as inputs. It sums up the corresponding values at the given 
-    row of values list and given Vector. If the sizes of both Matrix and values list do not match, it throws 
-    MatrixColumnMismatch exception.
-
-    PARAMETERS
-    ----------
-    rowNo : int
-        integer input for row number.
-    v : Vector    
-        Vector type input.
-    """
-
     def addRowVector(self, rowNo: int, v: Vector):
+        """
+        The add method which takes a row number and a Vector as inputs. It sums up the corresponding values at the given
+        row of values list and given Vector. If the sizes of both Matrix and values list do not match, it throws
+        MatrixColumnMismatch exception.
+
+        PARAMETERS
+        ----------
+        rowNo : int
+            integer input for row number.
+        v : Vector
+            Vector type input.
+        """
         if self.__col != v.size():
             raise MatrixColumnMismatch
         for i in range(self.__col):
             self.__values[rowNo][i] += v.getValue(i)
 
-    """
-    The subtract method takes a Matrix as an input and subtracts from values list the
-    corresponding items of given Matrix. If the sizes of both Matrix and values list do not match,
-    it throws {@link MatrixDimensionMismatch} exception.
-
-    PARAMETERS
-    ----------
-    m : Matrix
-        Matrix type input.
-    """
-
     def subtract(self, m: Matrix):
+        """
+        The subtract method takes a Matrix as an input and subtracts from values list the
+        corresponding items of given Matrix. If the sizes of both Matrix and values list do not match,
+        it throws {@link MatrixDimensionMismatch} exception.
+
+        PARAMETERS
+        ----------
+        m : Matrix
+            Matrix type input.
+        """
         if self.__row != m.__row or self.__col != m.__col:
             raise MatrixDimensionMismatch
         for i in range(self.__row):
             for j in range(self.__col):
                 self.__values[i][j] -= m.__values[i][j]
 
-    """
-    The multiplyWithVectorFromLeft method takes a Vector as an input and creates a result list.
-    Then, multiplies values of input Vector starting from the left side with the values list,
-    accumulates the multiplication, and assigns to the result list. If the sizes of both Vector
-    and row number do not match, it throws MatrixRowMismatch exception.
-
-    PARAMETERS
-    ----------
-    v : Vector
-        Vector type input.
-        
-    RETURNS
-    -------
-    Vector
-        Vector that holds the result.
-    """
-
     def multiplyWithVectorFromLeft(self, v: Vector) -> Vector:
+        """
+        The multiplyWithVectorFromLeft method takes a Vector as an input and creates a result list.
+        Then, multiplies values of input Vector starting from the left side with the values list,
+        accumulates the multiplication, and assigns to the result list. If the sizes of both Vector
+        and row number do not match, it throws MatrixRowMismatch exception.
+
+        PARAMETERS
+        ----------
+        v : Vector
+            Vector type input.
+
+        RETURNS
+        -------
+        Vector
+            Vector that holds the result.
+        """
         if self.__row != v.size():
             raise MatrixRowMismatch
         result = Vector()
@@ -301,24 +289,23 @@ class Matrix(object):
             result.add(total)
         return result
 
-    """
-    The multiplyWithVectorFromRight method takes a Vector as an input and creates a result list.
-    Then, multiplies values of input Vector starting from the right side with the values list,
-    accumulates the multiplication, and assigns to the result list. If the sizes of both Vector
-    and row number do not match, it throws MatrixColumnMismatch exception.
-
-    PARAMETERS
-    ----------
-    v : Vector
-        Vector type input.
-        
-    RETURNS
-    -------
-    Vector
-        Vector that holds the result.
-    """
-
     def multiplyWithVectorFromRight(self, v: Vector) -> Vector:
+        """
+        The multiplyWithVectorFromRight method takes a Vector as an input and creates a result list.
+        Then, multiplies values of input Vector starting from the right side with the values list,
+        accumulates the multiplication, and assigns to the result list. If the sizes of both Vector
+        and row number do not match, it throws MatrixColumnMismatch exception.
+
+        PARAMETERS
+        ----------
+        v : Vector
+            Vector type input.
+
+        RETURNS
+        -------
+        Vector
+            Vector that holds the result.
+        """
         if self.__col != v.size():
             raise MatrixColumnMismatch
         result = Vector()
@@ -329,71 +316,67 @@ class Matrix(object):
             result.add(total)
         return result
 
-    """
-    The columnSum method takes a column number as an input and accumulates items at given column number of values
-    list.
-
-    PARAMETERS
-    ----------
-    columnNo : int
-        Column number input.
-        
-    RETURNS
-    -------
-    double
-        summation of given column of values list.
-    """
-
     def columnSum(self, columnNo: int) -> float:
+        """
+        The columnSum method takes a column number as an input and accumulates items at given column number of values
+        list.
+
+        PARAMETERS
+        ----------
+        columnNo : int
+            Column number input.
+
+        RETURNS
+        -------
+        double
+            summation of given column of values list.
+        """
         total = 0
         for i in range(self.__row):
             total += self.__values[i][columnNo]
         return total
 
-    """
-    The sumOfRows method creates a mew result Vector and adds the result of columnDum method's corresponding
-    index to the newly created result Vector.
-
-    RETURNS
-    -------
-    Vector
-        Vector that holds column sum.
-    """
-
     def sumOfRows(self) -> Vector:
+        """
+        The sumOfRows method creates a mew result Vector and adds the result of columnDum method's corresponding
+        index to the newly created result Vector.
+
+        RETURNS
+        -------
+        Vector
+            Vector that holds column sum.
+        """
         result = Vector()
         for i in range(self.__col):
             result.add(self.columnSum(i))
         return result
 
-    """
-    The rowSum method takes a row number as an input and accumulates items at given row number of values list.
-
-     * @param rowNo Row number input.
-     * @return summation of given row of values {@link java.lang.reflect.Array}.
-    """
-
     def rowSum(self, rowNo: int) -> float:
+        """
+        The rowSum method takes a row number as an input and accumulates items at given row number of values list.
+
+         * @param rowNo Row number input.
+         * @return summation of given row of values {@link java.lang.reflect.Array}.
+        """
         return sum(self.__values[rowNo])
 
-    """
-    The multiply method takes a Matrix as an input. First it creates a result Matrix and puts the
-    accumulatated multiplication of values list and given Matrix into result
-    Matrix. If the size of Matrix's row size and values list's column size do not match,
-    it throws MatrixRowColumnMismatch exception.
-
-    PARAMETERS
-    ----------
-    m : Matrix
-        Matrix type input.
-
-    RETURNS
-    -------
-    Matrix
-        result Matrix.
-    """
-
     def multiply(self, m: Matrix) -> Matrix:
+        """
+        The multiply method takes a Matrix as an input. First it creates a result Matrix and puts the
+        accumulatated multiplication of values list and given Matrix into result
+        Matrix. If the size of Matrix's row size and values list's column size do not match,
+        it throws MatrixRowColumnMismatch exception.
+
+        PARAMETERS
+        ----------
+        m : Matrix
+            Matrix type input.
+
+        RETURNS
+        -------
+        Matrix
+            result Matrix.
+        """
         if self.__col != m.__row:
             raise MatrixRowColumnMismatch
         result = Matrix(self.__row, m.__col)
@@ -405,23 +388,22 @@ class Matrix(object):
                 result.__values[i][j] = total
         return result
 
-    """
-    The elementProduct method takes a Matrix as an input and performs element wise multiplication. Puts result
-    to the newly created Matrix. If the size of Matrix's row and column size does not match with the values
-    list's row and column size, it throws MatrixDimensionMismatch exception.
-
-    PARAMETERS
-    ----------
-    m : Matrix
-        Matrix type input.
-
-    RETURNS
-    -------
-    Matrix
-        result Matrix.
-    """
-
     def elementProduct(self, m: Matrix) -> Matrix:
+        """
+        The elementProduct method takes a Matrix as an input and performs element wise multiplication. Puts result
+        to the newly created Matrix. If the size of Matrix's row and column size does not match with the values
+        list's row and column size, it throws MatrixDimensionMismatch exception.
+
+        PARAMETERS
+        ----------
+        m : Matrix
+            Matrix type input.
+
+        RETURNS
+        -------
+        Matrix
+            result Matrix.
+        """
         if self.__row != m.__row or self.__col != m.__col:
             raise MatrixDimensionMismatch
         result = Matrix(self.__row, self.__col)
@@ -430,32 +412,30 @@ class Matrix(object):
                 result.__values[i][j] = self.__values[i][j] * m.__values[i][j]
         return result
 
-    """
-    The sumOfElements method accumulates all the items in values list and
-    returns this summation.
-
-    RETURNS
-    -------
-    float
-        sum of the items of values list.
-    """
-
     def sumOfElements(self) -> float:
+        """
+        The sumOfElements method accumulates all the items in values list and
+        returns this summation.
+
+        RETURNS
+        -------
+        float
+            sum of the items of values list.
+        """
         total = 0.0
         for i in range(self.__row):
             total += sum(self.__values[i])
         return total
 
-    """
-    The trace method accumulates items of values list at the diagonal.
-
-    RETURNS
-    -------
-    float
-        sum of items at diagonal.
-    """
-
     def trace(self) -> float:
+        """
+        The trace method accumulates items of values list at the diagonal.
+
+        RETURNS
+        -------
+        float
+            sum of items at diagonal.
+        """
         if self.__row != self.__col:
             raise MatrixNotSquare
         total = 0.0
@@ -463,63 +443,60 @@ class Matrix(object):
             total += self.__values[i][i]
         return total
 
-    """
-    The transpose method creates a new Matrix, then takes the transpose of values list
-    and puts transposition to the Matrix.
-
-    RETURNS
-    -------
-    Matrix
-        Matrix type output.
-    """
-
     def transpose(self) -> Matrix:
+        """
+        The transpose method creates a new Matrix, then takes the transpose of values list
+        and puts transposition to the Matrix.
+
+        RETURNS
+        -------
+        Matrix
+            Matrix type output.
+        """
         result = Matrix(self.__col, self.__row)
         for i in range(self.__row):
             for j in range(self.__col):
                 result.__values[j][i] = self.__values[i][j]
         return result
 
-    """
-    The partial method takes 4 integer inputs; rowStart, rowEnd, colStart, colEnd and creates a Matrix size of
-    rowEnd - rowStart + 1 x colEnd - colStart + 1. Then, puts corresponding items of values list
-    to the new result Matrix.
-
-    PARAMETERS
-    ----------
-    rowStart : int
-        integer input for defining starting index of row.
-    rowEnd : int  
-        integer input for defining ending index of row.
-    colStart : int
-        integer input for defining starting index of column.
-    colEnd : int  
-        integer input for defining ending index of column.
-
-    RETURNS
-    -------
-    Matrix
-        result Matrix.
-    """
-
     def partial(self, rowStart: int, rowEnd: int, colStart: int, colEnd: int) -> Matrix:
+        """
+        The partial method takes 4 integer inputs; rowStart, rowEnd, colStart, colEnd and creates a Matrix size of
+        rowEnd - rowStart + 1 x colEnd - colStart + 1. Then, puts corresponding items of values list
+        to the new result Matrix.
+
+        PARAMETERS
+        ----------
+        rowStart : int
+            integer input for defining starting index of row.
+        rowEnd : int
+            integer input for defining ending index of row.
+        colStart : int
+            integer input for defining starting index of column.
+        colEnd : int
+            integer input for defining ending index of column.
+
+        RETURNS
+        -------
+        Matrix
+            result Matrix.
+        """
         result = Matrix(rowEnd - rowStart + 1, colEnd - colStart + 1)
         for i in range(rowStart, rowEnd + 1):
             for j in range(colStart, colEnd + 1):
                 result.__values[i - rowStart][j - colStart] = self.__values[i][j]
         return result
 
-    """
-    The isSymmetric method compares each item of values list at positions (i, j) with (j, i)
-    and returns true if they are equal, false otherwise.
-
-    RETURNS
-    -------
-    bool
-        true if items are equal, false otherwise.
-    """
-
     def isSymmetric(self) -> bool:
+        """
+        The isSymmetric method compares each item of values list at positions (i, j) with (j, i)
+        and returns true if they are equal, false otherwise.
+
+        RETURNS
+        -------
+        bool
+            true if items are equal, false otherwise.
+        """
         if self.__row != self.__col:
             raise MatrixNotSquare
         for i in range(self.__row - 1):
@@ -528,18 +505,17 @@ class Matrix(object):
                     return False
         return True
 
-    """
-    The determinant method first creates a new list, and copies the items of  values
-    list into new list. Then, calculates the determinant of this
-    new list.
-
-    RETURNS
-    -------
-    float
-        determinant of values list.
-    """
-
     def determinant(self) -> float:
+        """
+        The determinant method first creates a new list, and copies the items of  values
+        list into new list. Then, calculates the determinant of this
+        new list.
+
+        RETURNS
+        -------
+        float
+            determinant of values list.
+        """
         if self.__row != self.__col:
             raise MatrixNotSquare
         det = 1.0
@@ -554,11 +530,10 @@ class Matrix(object):
                     copyOfMatrix.__values[j][k] = copyOfMatrix.__values[j][k] - copyOfMatrix.__values[i][k] * ratio
         return det
 
-    """
-    The inverse method finds the inverse of values list.
-    """
-
     def inverse(self):
+        """
+        The inverse method finds the inverse of values list.
+        """
         if self.__row != self.__col:
             raise MatrixNotSquare
         b = Matrix(self.__row, self.__row)
@@ -617,18 +592,17 @@ class Matrix(object):
                     self.__values[k - 1][indxr[l - 1] - 1] = self.__values[k - 1][indxc[l - 1] - 1]
                     self.__values[k - 1][indxc[l - 1] - 1] = dum
 
-    """
-    The choleskyDecomposition method creates a new Matrix and puts the Cholesky Decomposition of values Array
-    into this Matrix. Also, it throws MatrixNotSymmetric exception if it is not symmetric and
-    MatrixNotPositiveDefinite exception if the summation is negative.
-
-    RETURNS
-    -------
-    Matrix
-        Matrix type output.
-    """
-
     def choleskyDecomposition(self) -> Matrix:
+        """
+        The choleskyDecomposition method creates a new Matrix and puts the Cholesky Decomposition of values Array
+        into this Matrix. Also, it throws MatrixNotSymmetric exception if it is not symmetric and
+        MatrixNotPositiveDefinite exception if the summation is negative.
+
+        RETURNS
+        -------
+        Matrix
+            Matrix type output.
+        """
         if not self.isSymmetric():
             raise MatrixNotSymmetric
         b = Matrix(self.__row, self.__col)
@@ -645,42 +619,40 @@ class Matrix(object):
                     b.__values[j][i] = total / b.__values[i][i]
         return b
 
-    """
-    The rotate method rotates values list according to given inputs.
-
-    PARAMETERS
-    ----------
-    s : double
-        double input.
-    tau : double 
-        double input.
-    i : int  
-        integer input.
-    j : int  
-        integer input.
-    k : int  
-        integer input.
-    l : int  
-        integer input.
-    """
-
     def __rotate(self, s: float, tau: float, i: int, j: int, k: int, l: int):
+        """
+        The rotate method rotates values list according to given inputs.
+
+        PARAMETERS
+        ----------
+        s : double
+            double input.
+        tau : double
+            double input.
+        i : int
+            integer input.
+        j : int
+            integer input.
+        k : int
+            integer input.
+        l : int
+            integer input.
+        """
         g = self.__values[i][j]
         h = self.__values[k][l]
         self.__values[i][j] = g - s * (h + g * tau)
         self.__values[k][l] = h + s * (g - h * tau)
 
-    """
-    The characteristics method finds and returns a sorted list of Eigenvecto}s. And it throws
-    MatrixNotSymmetric exception if it is not symmetric.
-
-    RETURNS
-    -------
-    list
-        A sorted list of Eigenvectors.
-    """
-
     def characteristics(self) -> list:
+        """
+        The characteristics method finds and returns a sorted list of Eigenvecto}s. And it throws
+        MatrixNotSymmetric exception if it is not symmetric.
+
+        RETURNS
+        -------
+        list
+            A sorted list of Eigenvectors.
+        """
         if not self.isSymmetric():
             raise MatrixNotSymmetric
         matrix1 = copy.deepcopy(self)
