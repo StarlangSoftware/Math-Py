@@ -58,21 +58,21 @@ Detailed Description
 
 Bir vektör yaratmak için:
 
-	a = Vector(ArrayList<Double> values)
+	Vector(self, values=None)
 
 Vektörler eklemek için
 
-	void add(Vector v)
+	addVector(self, v: Vector)
 
 Çıkarmak için
 
-	void subtract(Vector v)
-	Vector difference(Vector v)
+	subtract(self, v: Vector)
+	difference(self, v: Vector) -> Vector
 
 İç çarpım için
 
-	double dotProduct(Vector v)
-	double dotProduct()
+	dotProduct(self, v: Vector) -> float
+	dotProductWithSelf(self) -> float
 
 Bir vektörle cosinüs benzerliğini hesaplamak için
 
@@ -80,7 +80,7 @@ Bir vektörle cosinüs benzerliğini hesaplamak için
 
 Bir vektörle eleman eleman çarpmak için
 
-	Vector elementProduct(Vector v)
+	elementProduct(self, v: Vector) -> Vector
 
 ## Matrix
 
@@ -90,7 +90,7 @@ Bir vektörle eleman eleman çarpmak için
 
 Elemanları rasgele değerler alan bir matris yaratmak için
 
-	Matrix(int row, int col, double min, double max)
+	Matrix(self, row, col, minValue=None, maxValue=None)
 
 Örneğin, 
 
@@ -98,19 +98,9 @@ Elemanları rasgele değerler alan bir matris yaratmak için
  
 3'e 4'lük elemanları 1 ve 5 arasında değerler alan bir matris yaratır.
 
-Birim matris yaratmak için
-
-	Matrix(int size)
-
-Örneğin,
-
-	a = Matrix(4)
-
-4'e 4'lük köşegeni 1, diğer elemanları 0 olan bir matris yaratır.
-
 Matrisin i. satır, j. sütun elemanını getirmek için 
 
-	double getValue(int rowNo, int colNo)
+	getValue(self, rowNo: int, colNo: int) -> float
 
 Örneğin,
 
@@ -120,7 +110,7 @@ Matrisin i. satır, j. sütun elemanını getirmek için
 
 Matrisin i. satır, j. sütunundaki elemanı değiştirmek için
 
-	void setValue(int rowNo, int colNo, double value)
+	setValue(self, rowNo: int, colNo: int, value: float)
 
 Örneğin,
 
@@ -130,39 +120,39 @@ Matrisin i. satır, j. sütunundaki elemanı değiştirmek için
 
 Matrisleri toplamak için
 
-	void add(Matrix m)
+	add(self, m: Matrix)
 
 Çıkarmak için 
 
-	void subtract(Matrix m)
+	subtract(self, m: Matrix)
 
 Çarpmak için 
 
-	Matrix multiply(Matrix m)
+	multiply(self, m: Matrix) -> Matrix
 
 Elaman eleman matrisleri çarpmak için
 
-	Matrix elementProduct(Matrix m)
+	elementProduct(self, m: Matrix) -> Matrix
 
 Matrisin transpozunu almak için
 
-	Matrix transpose()
+	transpose(self) -> Matrix
 
 Matrisin simetrik olup olmadığı belirlemek için
 
-	boolean isSymmetric()
+	isSymmetric(self) -> bool
 
 Determinantını almak için
 
-	double determinant()
+	determinant(self) -> float
 
 Tersini almak için
 
-	void inverse()
+	inverse(self)
 
 Matrisin eigenvektör ve eigendeğerlerini bulmak için
 
-	ArrayList<Eigenvector> characteristics()
+	characteristics(self) -> list
 
 Bu metodla bulunan eigenvektörler eigendeğerlerine göre büyükten küçüğe doğru 
 sıralı olarak döndürülür.
@@ -171,32 +161,32 @@ sıralı olarak döndürülür.
 
 Verilen bir değerin normal dağılımdaki olasılığını döndürmek için
 
-	static double zNormal(double z)
+	zNormal(z: float) -> float
 
 Verilen bir olasılığın normal dağılımdaki değerini döndürmek için
 
-	static double zInverse(double p)
+	zInverse(p: float) -> float
 
 Verilen bir değerin chi kare dağılımdaki olasılığını döndürmek için
 
-	static double chiSquare(double x, int freedom)
+	chiSquare(x: float, freedom: int) -> float
 
 Verilen bir olasılığın chi kare dağılımdaki değerini döndürmek için
 
-	static double chiSquareInverse(double p, int freedom)
+	chiSquareInverse(p: float, freedom: int) -> float
 
 Verilen bir değerin F dağılımdaki olasılığını döndürmek için
 
-	static double fDistribution(double F, int freedom1, int freedom2)
+	fDistribution(F: float, freedom1: int, freedom2: int) -> float
 
 Verilen bir olasılığın F dağılımdaki değerini döndürmek için
 
-	static double fDistributionInverse(double p, int freedom1, int freedom2)
+	fDistributionInverse(p: float, freedom1: int, freedom2: int) -> float
 
 Verilen bir değerin t dağılımdaki olasılığını döndürmek için
 
-	static double tDistribution(double T, int freedom)
+	tDistribution(T: float, freedom: int) -> float
 
 Verilen bir olasılığın t dağılımdaki değerini döndürmek için
 
-	static double tDistributionInverse(double p, int freedom)
+	tDistributionInverse(p: float, freedom: int) -> float
