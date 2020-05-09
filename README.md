@@ -1,8 +1,9 @@
 # Math-Py
+
 For Developers
 ============
-You can also see either [Java](https://github.com/olcaytaner/Math) 
-or [C++](https://github.com/olcaytaner/Math-CPP) repository.
+You can also see [Java](https://github.com/starlangsoftware/Math), [C++](https://github.com/starlangsoftware/Math-CPP) or [C#](https://github.com/starlangsoftware/Math-CPP) repository.
+
 ## Requirements
 
 * [Python 3.7 or higher](#python)
