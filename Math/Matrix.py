@@ -20,7 +20,7 @@ class Matrix(object):
     __col: int
     __values: list
 
-    def __init__(self, row, col, minValue=None, maxValue=None):
+    def __init__(self, row, col=None, minValue=None, maxValue=None):
         """
         Constructor of Matrix class which takes row and column numbers (Vectors) as inputs.
 
@@ -31,18 +31,24 @@ class Matrix(object):
         col : int (or Vector)
             is used to create matrix.
         """
-        if isinstance(row, int) and isinstance(col, int):
+        if isinstance(row, int):
             self.__row = row
-            self.__col = col
-            if minValue is None:
-                self.initZeros()
-            elif maxValue is None:
+            if col is not None:
+                self.__col = col
+                if minValue is None:
+                    self.initZeros()
+                elif maxValue is None:
+                    self.initZeros()
+                    for i in range(self.__row):
+                        self.__values[i][i] = minValue
+                else:
+                    self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in
+                                     range(self.__row)]
+            else:
+                self.__col = row
                 self.initZeros()
                 for i in range(self.__row):
-                    self.__values[i][i] = minValue
-            else:
-                self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in
-                                 range(self.__row)]
+                    self.__values[i][i] = 1.0
         elif isinstance(row, Vector) and isinstance(col, Vector):
             self.__row = row.size()
             self.__col = col.size()
@@ -53,6 +59,9 @@ class Matrix(object):
 
     def initZeros(self):
         self.__values = [[0 for _ in range(self.__col)] for _ in range(self.__row)]
+
+    def clone(self) -> Matrix:
+        return copy.deepcopy(self)
 
     def getValue(self, rowNo: int, colNo: int) -> float:
         """

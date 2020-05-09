@@ -9,20 +9,26 @@ class Vector(object):
     __size: int
     __values: list
 
-    def __init__(self, values=None):
+    def __init__(self, valuesOrSize=None, initial=None):
         """
         A constructor of Vector class which takes a list values as an input. Then, initializes
         values list and size variable with given input and its size.
 
         PARAMETERS
         ----------
-        values : list
-            list input.
+        valuesOrSize
+            list input or size.
+        initial
+            initial value for each element
         """
-        if values is None:
-            values = []
-        self.__values = values
-        self.__size = len(values)
+        if valuesOrSize is None:
+            self.__values = []
+            self.__size = 0
+        elif isinstance(valuesOrSize, list):
+            self.__values = valuesOrSize.copy()
+            self.__size = len(valuesOrSize)
+        else:
+            self.initAllSame(valuesOrSize, initial)
 
     def initAllSame(self, size: int, x: float):
         """
@@ -62,7 +68,7 @@ class Vector(object):
             self.__values.append(0.0)
         self.__values[index] = x
 
-    def biased(self):
+    def biased(self) -> Vector:
         """
         The biased method creates a list result, add adds each item of values list into the result list.
         Then, insert 1.0 to 0th position and return result list.
@@ -123,6 +129,20 @@ class Vector(object):
         """
         for i in range(len(self.__values)):
             self.__values[i] = 0
+
+    def sumOfElements(self) -> float:
+        """
+        The sumOfElements method sums up all elements in the vector.
+
+        RETURNS
+        -------
+        float
+            Sum of all elements in the vector.
+        """
+        total = 0
+        for i in range(self.__size):
+            total += self.__values[i]
+        return total
 
     def maxIndex(self) -> int:
         """

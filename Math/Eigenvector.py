@@ -3,7 +3,7 @@ from Math.Vector import Vector
 
 class Eigenvector(Vector):
 
-    __eigenvalue: float
+    eigenvalue: float
 
     def __init__(self, eigenvalue: float, values: list):
         """
@@ -19,7 +19,7 @@ class Eigenvector(Vector):
             list input.
         """
         super().__init__(values)
-        self.__eigenvalue = eigenvalue
+        self.eigenvalue = eigenvalue
 
     def eigenValue(self) -> float:
         """
@@ -30,4 +30,4 @@ class Eigenvector(Vector):
         double
             eigenValue variable.
         """
-        return self.__eigenvalue
+        return self.eigenvalue
