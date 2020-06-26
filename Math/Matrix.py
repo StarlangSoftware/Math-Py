@@ -20,7 +20,7 @@ class Matrix(object):
     __col: int
     __values: list
 
-    def __init__(self, row, col=None, minValue=None, maxValue=None):
+    def __init__(self, row, col=None, minValue=None, maxValue=None, seed=None):
         """
         Constructor of Matrix class which takes row and column numbers (Vectors) as inputs.
 
@@ -30,6 +30,12 @@ class Matrix(object):
             is used to create matrix.
         col : int (or Vector)
             is used to create matrix.
+        minValue : float
+            minimum Value for the initialization
+        maxValue : float
+            maximum Value for the initialization
+        seed : int
+            seed for the random
         """
         if isinstance(row, int):
             self.__row = row
@@ -42,6 +48,7 @@ class Matrix(object):
                     for i in range(self.__row):
                         self.__values[i][i] = minValue
                 else:
+                    random.seed(seed)
                     self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in
                                      range(self.__row)]
             else:

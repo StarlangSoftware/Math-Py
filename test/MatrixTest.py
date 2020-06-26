@@ -23,7 +23,7 @@ class MatrixTest(unittest.TestCase):
                 self.medium.setValue(i, j, 1.0)
         self.V = Vector(1000, 1.0)
         self.vr = Vector(100, 1.0)
-        self.random = Matrix(100, 100, 1, 10)
+        self.random = Matrix(100, 100, 1, 10, 1)
         self.originalSum = self.random.sumOfElements()
         self.identity = Matrix(100)
 
