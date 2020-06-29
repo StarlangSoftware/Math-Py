@@ -21,7 +21,7 @@ class Eigenvector(Vector):
         super().__init__(values)
         self.eigenvalue = eigenvalue
 
-    def eigenValue(self) -> float:
+    def getEigenvalue(self) -> float:
         """
         The eigenValue method which returns the eigenValue variable.
 

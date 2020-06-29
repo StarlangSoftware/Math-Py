@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='NlpToolkit-Math',
-    version='1.0.10',
+    version='1.0.11',
     packages=['Math'],
     url='https://github.com/olcaytaner/Math-Py',
     license='',
