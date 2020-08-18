@@ -141,7 +141,7 @@ class DiscreteDistribution(collections.OrderedDict):
         """
         return list(self.keys())[index]
 
-    def getValue(self, index: int) -> str:
+    def getValue(self, index: int) -> int:
         """
         The getValue method takes an index as an input and returns the value at given index.
 
