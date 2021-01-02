@@ -4,9 +4,9 @@ setup(
     name='NlpToolkit-Math',
     version='1.0.12',
     packages=['Math'],
-    url='https://github.com/olcaytaner/Math-Py',
+    url='https://github.com/StarlangSoftware/Math-Py',
     license='',
     author='olcaytaner',
-    author_email='olcaytaner@isikun.edu.tr',
+    author_email='olcay.yildiz@ozyegin.edu.tr',
     description='Math library'
 )
