@@ -236,6 +236,12 @@ class DiscreteDistribution(collections.OrderedDict):
         else:
             return 0.0
 
+    def getProbabilityDistribution(self) -> dict:
+        result = {}
+        for item in self:
+            result[item] = self.getProbability(item)
+        return result
+
     def getProbabilityLaplaceSmoothing(self, item: str) -> float:
         """
         The getProbabilityLaplaceSmoothing method takes an item as an input returns the smoothed value to which the
