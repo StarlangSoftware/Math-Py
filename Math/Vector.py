@@ -171,6 +171,32 @@ class Vector(object):
         for i in range(self.__size):
             self.__values[i] = 1 / (1 + math.exp(-self.__values[i]))
 
+    def tanh(self):
+        """
+        The tanh method loops through the values list and sets each ith item with tanh function.
+        """
+        for i in range(self.__size):
+            self.__values[i] = math.tanh(self.__values[i])
+
+    def relu(self):
+        """
+        The relu method loops through the values list and sets each ith item with relu function.
+        """
+        for i in range(self.__size):
+            if self.__values[i] < 0:
+                self.__values[i] = 0.0
+
+    def reluDerivative(self):
+        """
+        The reluDerivative method loops through the values list and sets each ith item with the derivative of the
+        relu function.
+        """
+        for i in range(self.__size):
+            if self.__values[i] > 0:
+                self.__values[i] = 1.0
+            else:
+                self.__values[i] = 0.0
+
     def skipVector(self, mod: int, value: int) -> Vector:
         """
         The skipVector method takes a mod and a value as inputs. It creates a new result Vector, and assigns given input
