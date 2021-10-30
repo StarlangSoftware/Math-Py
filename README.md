@@ -1,7 +1,7 @@
 For Developers
 ============
 
-You can also see [Cython](https://github.com/starlangsoftware/Math-Cy), [Java](https://github.com/starlangsoftware/Math), [C++](https://github.com/starlangsoftware/Math-CPP), [Swift](https://github.com/starlangsoftware/Math-Swift), or [C#](https://github.com/starlangsoftware/Math-CPP) repository.
+You can also see [Cython](https://github.com/starlangsoftware/Math-Cy), [Java](https://github.com/starlangsoftware/Math), [C++](https://github.com/starlangsoftware/Math-CPP), [Swift](https://github.com/starlangsoftware/Math-Swift), [Js](https://github.com/starlangsoftware/Math-Js), or [C#](https://github.com/starlangsoftware/Math-CPP) repository.
 
 ## Requirements
 
