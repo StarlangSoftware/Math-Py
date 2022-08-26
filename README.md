@@ -1,3 +1,8 @@
+Video Lectures
+============
+
+[<img src=https://github.com/StarlangSoftware/Math/blob/master/video.jpg width="50%">](https://youtu.be/GhcoaVi0SMs)
+
 For Developers
 ============
 
