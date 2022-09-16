@@ -20,7 +20,12 @@ class Matrix(object):
     __col: int
     __values: list
 
-    def __init__(self, row, col=None, minValue=None, maxValue=None, seed=None):
+    def __init__(self,
+                 row,
+                 col=None,
+                 minValue=None,
+                 maxValue=None,
+                 seed=None):
         """
         Constructor of Matrix class which takes row and column numbers (Vectors) as inputs.
 
@@ -70,7 +75,9 @@ class Matrix(object):
     def clone(self) -> Matrix:
         return copy.deepcopy(self)
 
-    def getValue(self, rowNo: int, colNo: int) -> float:
+    def getValue(self,
+                 rowNo: int,
+                 colNo: int) -> float:
         """
         The getter for the index at given rowNo and colNo of values list.
 
@@ -88,7 +95,10 @@ class Matrix(object):
         """
         return self.__values[rowNo][colNo]
 
-    def setValue(self, rowNo: int, colNo: int, value: float):
+    def setValue(self,
+                 rowNo: int,
+                 colNo: int,
+                 value: float):
         """
         The setter for the value at given index of values list.
 
@@ -103,7 +113,10 @@ class Matrix(object):
         """
         self.__values[rowNo][colNo] = value
 
-    def addValue(self, rowNo: int, colNo: int, value: float):
+    def addValue(self,
+                 rowNo: int,
+                 colNo: int,
+                 value: float):
         """
         The addValue method adds the given value to the item at given index of values list.
 
@@ -118,7 +131,9 @@ class Matrix(object):
         """
         self.__values[rowNo][colNo] += value
 
-    def increment(self, rowNo: int, colNo: int):
+    def increment(self,
+                  rowNo: int,
+                  colNo: int):
         """
         The increment method adds 1 to the item at given index of values list.
 
@@ -243,7 +258,9 @@ class Matrix(object):
             for j in range(self.__col):
                 self.__values[i][j] += m.__values[i][j]
 
-    def addRowVector(self, rowNo: int, v: Vector):
+    def addRowVector(self,
+                     rowNo: int,
+                     v: Vector):
         """
         The add method which takes a row number and a Vector as inputs. It sums up the corresponding values at the given
         row of values list and given Vector. If the sizes of both Matrix and values list do not match, it throws
@@ -475,7 +492,11 @@ class Matrix(object):
                 result.__values[j][i] = self.__values[i][j]
         return result
 
-    def partial(self, rowStart: int, rowEnd: int, colStart: int, colEnd: int) -> Matrix:
+    def partial(self,
+                rowStart: int,
+                rowEnd: int,
+                colStart: int,
+                colEnd: int) -> Matrix:
         """
         The partial method takes 4 integer inputs; rowStart, rowEnd, colStart, colEnd and creates a Matrix size of
         rowEnd - rowStart + 1 x colEnd - colStart + 1. Then, puts corresponding items of values list
@@ -635,7 +656,13 @@ class Matrix(object):
                     b.__values[j][i] = total / b.__values[i][i]
         return b
 
-    def __rotate(self, s: float, tau: float, i: int, j: int, k: int, l: int):
+    def __rotate(self,
+                 s: float,
+                 tau: float,
+                 i: int,
+                 j: int,
+                 k: int,
+                 l: int):
         """
         The rotate method rotates values list according to given inputs.
 
@@ -734,3 +761,6 @@ class Matrix(object):
                 result.append(Eigenvector(d[i], v.getColumnVector(i)))
         result.sort(key=lambda eigenvector: eigenvector.eigenvalue, reverse=True)
         return result
+
+    def __repr__(self):
+        return f"{self.__values}"

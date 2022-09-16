@@ -9,7 +9,9 @@ class Vector(object):
     __size: int
     __values: list
 
-    def __init__(self, valuesOrSize=None, initial=None):
+    def __init__(self,
+                 valuesOrSize=None,
+                 initial=None):
         """
         A constructor of Vector class which takes a list values as an input. Then, initializes
         values list and size variable with given input and its size.
@@ -30,7 +32,9 @@ class Vector(object):
         else:
             self.initAllSame(valuesOrSize, initial)
 
-    def initAllSame(self, size: int, x: float):
+    def initAllSame(self,
+                    size: int,
+                    x: float):
         """
         Another constructor of Vector class which takes integer size and double x as inputs. Then, initializes size
         variable with given size input and creates new values list and adds given input x to values list.
@@ -47,7 +51,10 @@ class Vector(object):
         for i in range(size):
             self.__values.append(x)
 
-    def initAllZerosExceptOne(self, size: int, index: int, x: float):
+    def initAllZerosExceptOne(self,
+                              size: int,
+                              index: int,
+                              x: float):
         """
         Another constructor of Vector class which takes integer size, integer index and double x as inputs.
         Then, initializes size variable with given size input and creates new values list and adds 0.0 to
@@ -96,7 +103,9 @@ class Vector(object):
         self.__values.append(x)
         self.__size = self.__size + 1
 
-    def insert(self, pos: int, x: float):
+    def insert(self,
+               pos: int,
+               x: float):
         """
         The insert method puts given input to the given index of values list and increments the size variable by one.
 
@@ -197,7 +206,9 @@ class Vector(object):
             else:
                 self.__values[i] = 0.0
 
-    def skipVector(self, mod: int, value: int) -> Vector:
+    def skipVector(self,
+                   mod: int,
+                   value: int) -> Vector:
         """
         The skipVector method takes a mod and a value as inputs. It creates a new result Vector, and assigns given input
         value to i. While i is less than the size, it adds the ith item of values {@link ArrayList} to the result and
@@ -452,7 +463,9 @@ class Vector(object):
         """
         return self.__values[index]
 
-    def setValue(self, index: int, value: float):
+    def setValue(self,
+                 index: int,
+                 value: float):
         """
         Setter for the setting the value at given index of values list.
 
@@ -465,7 +478,9 @@ class Vector(object):
         """
         self.__values[index] = value
 
-    def addValue(self, index: int, value: float):
+    def addValue(self,
+                 index: int,
+                 value: float):
         """
         The addValue method adds the given value to the item at given index of values list.
 
@@ -477,3 +492,6 @@ class Vector(object):
             value to add to given index.
         """
         self.__values[index] += value
+
+    def __repr__(self):
+        return f"{self.__values}"
