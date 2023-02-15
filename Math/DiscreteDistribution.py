@@ -44,6 +44,7 @@ class DiscreteDistribution(collections.OrderedDict):
             self[item] = self[item] - 1
             if self[item] == 0:
                 self.pop(item)
+            self.__sum = self.__sum - 1
 
     def addDistribution(self, distribution: DiscreteDistribution):
         """

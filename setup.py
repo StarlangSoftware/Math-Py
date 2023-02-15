@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 
 setup(
     name='NlpToolkit-Math',
-    version='1.0.17',
+    version='1.0.18',
     packages=['Math'],
     url='https://github.com/StarlangSoftware/Math-Py',
     license='',
