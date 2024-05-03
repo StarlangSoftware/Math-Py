@@ -70,9 +70,17 @@ class Matrix(object):
                     self.__values[i][j] = row.getValue(i) * col.getValue(j)
 
     def initZeros(self):
+        """
+        Initializes the matrix values with 0.
+        :return: Initialized matrix.
+        """
         self.__values = [[0 for _ in range(self.__col)] for _ in range(self.__row)]
 
     def clone(self) -> Matrix:
+        """
+        Clones the matrix.
+        :return: Deep cloned copy.
+        """
         return copy.deepcopy(self)
 
     def getValue(self,

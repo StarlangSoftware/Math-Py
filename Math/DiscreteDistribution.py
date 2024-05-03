@@ -238,6 +238,10 @@ class DiscreteDistribution(collections.OrderedDict):
             return 0.0
 
     def getProbabilityDistribution(self) -> dict:
+        """
+        Returns the distribution as a probability distribution
+        :return: Probability distribution
+        """
         result = {}
         for item in self:
             result[item] = self.getProbability(item)
