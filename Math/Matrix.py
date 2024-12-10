@@ -20,6 +20,40 @@ class Matrix(object):
     __col: int
     __values: list
 
+    def constructor1(self, row: int):
+        self.__row = row
+        self.__col = row
+        self.initZeros()
+        for i in range(self.__row):
+            self.__values[i][i] = 1.0
+
+    def constructor2(self, row: int, col: int):
+        self.__row = row
+        self.__col = col
+        self.initZeros()
+
+    def constructor3(self, row: int, col: int, minValue: float):
+        self.__row = row
+        self.__col = col
+        self.initZeros()
+        for i in range(self.__row):
+            self.__values[i][i] = minValue
+
+    def constructor4(self, row: int, col: int, minValue: float, maxValue: float, seed: int):
+        self.__row = row
+        self.__col = col
+        random.seed(seed)
+        self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in
+                         range(self.__row)]
+
+    def constructor5(self, row: Vector, col: Vector):
+        self.__row = row.size()
+        self.__col = col.size()
+        self.initZeros()
+        for i in range(row.size()):
+            for j in range(col.size()):
+                self.__values[i][j] = row.getValue(i) * col.getValue(j)
+
     def __init__(self,
                  row,
                  col=None,
@@ -43,31 +77,17 @@ class Matrix(object):
             seed for the random
         """
         if isinstance(row, int):
-            self.__row = row
             if col is not None:
-                self.__col = col
                 if minValue is None:
-                    self.initZeros()
+                    self.constructor2(row, col)
                 elif maxValue is None:
-                    self.initZeros()
-                    for i in range(self.__row):
-                        self.__values[i][i] = minValue
+                    self.constructor3(row, col, minValue)
                 else:
-                    random.seed(seed)
-                    self.__values = [[random.uniform(minValue, maxValue) for _ in range(self.__col)] for _ in
-                                     range(self.__row)]
+                    self.constructor4(row, col, minValue, maxValue, seed)
             else:
-                self.__col = row
-                self.initZeros()
-                for i in range(self.__row):
-                    self.__values[i][i] = 1.0
+                self.constructor1(row)
         elif isinstance(row, Vector) and isinstance(col, Vector):
-            self.__row = row.size()
-            self.__col = col.size()
-            self.initZeros()
-            for i in range(row.size()):
-                for j in range(col.size()):
-                    self.__values[i][j] = row.getValue(i) * col.getValue(j)
+            self.constructor5(row, col)
 
     def initZeros(self):
         """

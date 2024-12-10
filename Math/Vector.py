@@ -9,6 +9,14 @@ class Vector(object):
     __size: int
     __values: list
 
+    def constructor1(self):
+        self.__values = []
+        self.__size = 0
+
+    def constructor2(self, values: list):
+        self.__values = values.copy()
+        self.__size = len(values)
+
     def __init__(self,
                  valuesOrSize=None,
                  initial=None):
@@ -24,11 +32,9 @@ class Vector(object):
             initial value for each element
         """
         if valuesOrSize is None:
-            self.__values = []
-            self.__size = 0
+            self.constructor1()
         elif isinstance(valuesOrSize, list):
-            self.__values = valuesOrSize.copy()
-            self.__size = len(valuesOrSize)
+            self.constructor2(valuesOrSize)
         else:
             self.initAllSame(valuesOrSize, initial)
 
