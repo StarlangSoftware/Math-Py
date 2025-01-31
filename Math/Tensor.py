@@ -36,7 +36,7 @@ class Tensor:
         if isinstance(data, list):
             if len(data) == 0:
                 return (0,)
-            return (len(data), *self._infer_shape(data[0]))
+            return len(data), *self._infer_shape(data[0])
         return ()
 
     def _flatten(self, data: Union[List, List[List], List[List[List]]]) -> List[float]:
