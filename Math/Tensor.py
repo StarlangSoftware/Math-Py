@@ -280,6 +280,29 @@ class Tensor:
             result_data.append(dot_product)
 
         return Tensor(result_data, result_shape)
+    
+    def partial(self, start_indices: Tuple[int, ...], end_indices: Tuple[int, ...]) -> "Tensor":
+        """
+        Extracts a sub-tensor from the given start indices to the end indices.
+
+        :param start_indices: Tuple specifying the start indices for each dimension.
+        :param end_indices: Tuple specifying the end indices (exclusive) for each dimension.
+        :return: A new Tensor containing the extracted sub-tensor.
+        """
+        if len(start_indices) != len(self.shape) or len(end_indices) != len(self.shape):
+            raise ValueError("start_indices and end_indices must match the number of dimensions.")
+
+        # Compute the new shape of the extracted sub-tensor
+        new_shape = tuple(end - start for start, end in zip(start_indices, end_indices))
+
+        # Extract data from the original tensor
+        sub_data = []
+        for i in range(self._compute_num_elements(new_shape)):
+            sub_indices = self._unflatten_index(i, self._compute_strides(new_shape))
+            original_indices = tuple(start + offset for start, offset in zip(start_indices, sub_indices))
+            sub_data.append(self.get(original_indices))
+
+        return Tensor(sub_data, new_shape)
 
     def __repr__(self) -> str:
         """
