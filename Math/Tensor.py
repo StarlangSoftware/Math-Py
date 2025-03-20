@@ -76,6 +76,17 @@ class Tensor:
             product *= dim
         return product
 
+    def _validate_indices(self, indices: Tuple[int, ...]):
+        """
+        Validates that indices are within the valid range for each dimension.
+        """
+        if len(indices) != len(self.shape):
+            raise IndexError(f"Expected {len(self.shape)} indices but got {len(indices)}.")
+
+        for i, index in enumerate(indices):
+            if not (0 <= index < self.shape[i]):
+                raise IndexError(f"Index {indices} is out of bounds for shape {self.shape}.")
+
     def get(self, indices: Tuple[int, ...]) -> float:
         """
         Retrieves the value at the given indices.
@@ -83,8 +94,7 @@ class Tensor:
         :param indices: Tuple of indices specifying the position.
         :return: Value at the specified position.
         """
-        if len(indices) != len(self.shape):
-            raise IndexError("Number of indices must match the tensor dimensions.")
+        self._validate_indices(indices)  # Ensure indices are valid
         flat_index = sum(i * stride for i, stride in zip(indices, self.strides))
         return self.data[flat_index]
 
@@ -95,8 +105,7 @@ class Tensor:
         :param indices: Tuple of indices specifying the position.
         :param value: Value to set at the specified position.
         """
-        if len(indices) != len(self.shape):
-            raise IndexError("Number of indices must match the tensor dimensions.")
+        self._validate_indices(indices)  # Ensure indices are valid
         flat_index = sum(i * stride for i, stride in zip(indices, self.strides))
         self.data[flat_index] = value
 
