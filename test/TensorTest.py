@@ -3,7 +3,7 @@ import unittest
 from Math.Tensor import Tensor
 
 
-class MyTestCase(unittest.TestCase):
+class TensorTest(unittest.TestCase):
 
     def test_dot_same(self):
         a = Tensor([[[1, 1], [1, 1]], [[1, 1], [1, 1]]])
