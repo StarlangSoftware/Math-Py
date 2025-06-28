@@ -213,7 +213,7 @@ class Tensor:
 
         return Tensor(new_data, target_shape)
 
-    def __add__(self, other: "Tensor") -> "Tensor":
+    def add(self, other: "Tensor") -> "Tensor":
         """
         Adds two tensors element-wise with broadcasting.
 
@@ -230,7 +230,7 @@ class Tensor:
         ]
         return Tensor(result_data, broadcast_shape)
 
-    def __sub__(self, other: "Tensor") -> "Tensor":
+    def subtract(self, other: "Tensor") -> "Tensor":
         """
         Subtracts one tensor from another element-wise with broadcasting.
 
@@ -247,7 +247,7 @@ class Tensor:
         ]
         return Tensor(result_data, broadcast_shape)
 
-    def __mul__(self, other: "Tensor") -> "Tensor":
+    def hadamardProduct(self, other: "Tensor") -> "Tensor":
         """
         Multiplies two tensors element-wise with broadcasting.
 
@@ -264,29 +264,50 @@ class Tensor:
         ]
         return Tensor(result_data, broadcast_shape)
 
-    def dot(self, other: "Tensor") -> "Tensor":
+    def multiply(self, other: "Tensor") -> "Tensor":
         """
-        Computes the dot product of two tensors.
+        Performs matrix multiplication (batched if necessary).
 
-        :param other: The other tensor to compute the dot product with.
-        :return: New tensor with the result of the dot product.
+        For tensors of shape (..., M, K) and (..., K, N), returns (..., M, N).
+
+        :param other: Tensor with shape compatible for matrix multiplication.
+        :return: Tensor resulting from matrix multiplication.
         """
         if self.shape[-1] != other.shape[-2]:
-            raise ValueError(f"Shapes {self.shape} and {other.shape} are not aligned for dot product.")
+            raise ValueError(f"Shapes {self.shape} and {other.shape} are not aligned for multiplication.")
 
-        result_shape = self.shape[:-1] + (other.shape[-1],)
+        batch_shape = self.shape[:-2]
+        m, k1 = self.shape[-2:]
+        k2, n = other.shape[-2:]
+
+        if k1 != k2:
+            raise ValueError("Inner dimensions must match for matrix multiplication.")
+
+        # Broadcasting batch shape if necessary
+        if batch_shape != other.shape[:-2]:
+            broadcast_shape = self._broadcast_shape(self.shape[:-2], other.shape[:-2])
+            self_broadcasted = self.broadcast_to(broadcast_shape + (m, k1))
+            other_broadcasted = other.broadcast_to(broadcast_shape + (k2, n))
+        else:
+            broadcast_shape = batch_shape
+            self_broadcasted = self
+            other_broadcasted = other
+
+        result_shape = broadcast_shape + (m, n)
         result_data = []
 
         for i in range(self._compute_num_elements(result_shape)):
-            result_indices = self._unflatten_index(i, self._compute_strides(result_shape))
-            dot_product = 0
+            indices = self._unflatten_index(i, self._compute_strides(result_shape))
+            batch_idx = tuple(indices[:-2])
+            row, col = indices[-2], indices[-1]
 
-            for k in range(self.shape[-1]):
-                a_indices = tuple(result_indices[:-1]) + (k,)
-                b_indices = (k,) + tuple(result_indices[-1:])
-                dot_product += self.get(a_indices) * other.get(b_indices)
+            sum_result = 0
+            for k in range(k1):
+                a_idx = batch_idx + (row, k)
+                b_idx = batch_idx + (k, col)
+                sum_result += self_broadcasted.get(a_idx) * other_broadcasted.get(b_idx)
 
-            result_data.append(dot_product)
+            result_data.append(sum_result)
 
         return Tensor(result_data, result_shape)
     
