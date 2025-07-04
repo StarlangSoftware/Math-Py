@@ -5,6 +5,9 @@ class Tensor:
     """
     A class representing a multi-dimensional tensor that supports basic operations and broadcasting.
     """
+    data: list[float]
+    shape: Tuple[int, ...]
+    strides: Tuple[int, ...]
 
     def __init__(self, data: Union[List, List[List], List[List[List]]], shape: Tuple[int, ...] = None):
         """

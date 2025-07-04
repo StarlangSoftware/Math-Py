@@ -18,7 +18,7 @@ from Math.MatrixNotSymmetric import MatrixNotSymmetric
 class Matrix(object):
     __row: int
     __col: int
-    __values: list
+    __values: list[list[float]]
 
     def constructor1(self, row: int):
         self.__row = row

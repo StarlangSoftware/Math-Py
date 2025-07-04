@@ -7,7 +7,7 @@ from Math.VectorSizeMismatch import VectorSizeMismatch
 class Vector(object):
 
     __size: int
-    __values: list
+    __values: list[float]
 
     def constructor1(self):
         self.__values = []
