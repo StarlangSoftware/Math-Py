@@ -121,7 +121,7 @@ class Tensor:
             for j in range(end_index1):
                 new_list.append(self.__data[i * end_index1 + j])
             for j in range(end_index2):
-                new_list.append(self.__data[i * end_index2 + j])
+                new_list.append(tensor.__data[i * end_index2 + j])
         return Tensor(new_list, tuple(new_shape))
 
     def get(self, dimensions: Tuple[int, ...]) -> Tensor:
